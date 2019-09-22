@@ -17,9 +17,9 @@
                             <div class="mb-3" id="timestamp-0">
                                 Timestamp: <br>
                             </div>
-                            <div class="mb-3" id="nonce-0">
+                            {{-- <div class="mb-3" id="nonce-0">
                                 Nonce: <br>
-                            </div>
+                            </div> --}}
                             <div class="mb-3" id="prev-hash-0">
                                 Prev Hash: <br>
                             </div>
@@ -87,8 +87,6 @@
                 'starting': document.getElementById('upper_limit').value,
             };
 
-            console.log(typeof info.starting);
-
             let row = getRow();
             let col = addCol(info);
             row.appendChild(col);
@@ -141,7 +139,7 @@
             cardB.innerText = 'Hash:';
             cardB.appendChild(addHashDiv(info));
             cardB.appendChild(addTimeDiv(info.timestamp));
-            cardB.appendChild(addNonceDiv(info.nonce));
+            // cardB.appendChild(addNonceDiv(info.nonce));
             cardB.appendChild(addPHashDiv(info.prev_hash));
             cardB.appendChild(addDataDiv(info.data));
 
@@ -157,10 +155,10 @@
             div.classList.add('mb-3');
             let hashVal = hash(info);
 
-            while (!checkStatus(hashVal, info.starting)) {
-                info.nonce++;
-                console.log(info.nonce);
-            }
+            // while (!checkStatus(hashVal, info.starting)) {
+            //     info.nonce++;
+            //     console.log(info.nonce);
+            // }
 
             hashVal.then(function (val) {
                 div.innerText = val;
