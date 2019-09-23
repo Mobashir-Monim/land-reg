@@ -230,7 +230,8 @@
         }
 
         const hash = async (data) => {
-            let info = data.timestamp+' '+data.prev_hash+' '+data.nonce+' '+data.data;
+            let info = JSON.stringify(data);
+            
             // encode as UTF-8
             const msgBuffer = new TextEncoder('utf-8').encode(info);
 
