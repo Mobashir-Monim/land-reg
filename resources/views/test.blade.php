@@ -56,6 +56,7 @@
         let rowCount = 0;
         let blkCount = 0;
         let rowCreateBool = false;
+        var calculatedNonce = 0;
 
         window.onload = () => {
             let timestamp = new Date();
@@ -142,7 +143,6 @@
             cardB.appendChild(addNonceDiv(info.nonce));
             cardB.appendChild(addPHashDiv(info.prev_hash));
             cardB.appendChild(addDataDiv(info.data));
-
             card.appendChild(cardH);
             card.appendChild(cardB);
 
@@ -162,12 +162,12 @@
             let hashVal = hash(info);
 
             hashVal.then(val => {
-                console.log(val, info.starting);
                 if (checkStatus(val, info.starting)) {
                     div.innerText = val;
+                    calculatedNonce = info.nonce;
+                    document.getElementById('nonce-'+(blkCount - 1)).innerHTML = document.getElementById('nonce-'+(blkCount - 1)).innerHTML + info.nonce;
                 } else {
                     info.nonce++;
-                    console.log(val, info.nonce)
                     mine(info, div);
                 }
             });
@@ -199,7 +199,6 @@
             div.classList.add('mb-3');
             div.innerText = "Nonce: "
             let p = document.createElement('div');
-            p.innerText = nonce;
             div.appendChild(p);
 
             return div;
@@ -231,7 +230,7 @@
 
         const hash = async (data) => {
             let info = JSON.stringify(data);
-            
+
             // encode as UTF-8
             const msgBuffer = new TextEncoder('utf-8').encode(info);
 
