@@ -17,9 +17,9 @@
                             <div class="mb-3" id="timestamp-0">
                                 Timestamp: <br>
                             </div>
-                            <div class="mb-3" id="nonce-0">
+                            {{-- <div class="mb-3" id="nonce-0">
                                 Nonce: <br>
-                            </div>
+                            </div> --}}
                             <div class="mb-3" id="prev-hash-0">
                                 Prev Hash: <br>
                             </div>
@@ -88,6 +88,19 @@
             };
 
             let row = getRow();
+            let tCol = document.createElement('div');
+            tCol.classList.add('col-md-4', 'mb-3');
+            tCol.id = 'test';
+            let h = document.createElement('p');
+            let n = document.createElement('p');
+            let s = document.createElement('p');
+            h.id = 'h';
+            n.id = 'n';
+            s.id = 's';
+            tCol.appendChild(h);
+            tCol.appendChild(n);
+            tCol.appendChild(s);
+            row.appendChild(tCol);
             let col = addCol(info);
             row.appendChild(col);
 
@@ -139,7 +152,7 @@
             cardB.innerText = 'Hash:';
             cardB.appendChild(addHashDiv(info));
             cardB.appendChild(addTimeDiv(info.timestamp));
-            cardB.appendChild(addNonceDiv(info.nonce));
+            // cardB.appendChild(addNonceDiv(info.nonce));
             cardB.appendChild(addPHashDiv(info.prev_hash));
             cardB.appendChild(addDataDiv(info.data));
 
@@ -153,32 +166,42 @@
             let div = document.createElement('div');
             div.id = 'hash-'+blkCount;
             div.classList.add('mb-3');
-            mine(info, div);
+            let hashVal = hash(info);
+
+            while (!checkStatus(hashVal, info.starting)) {
+                info.nonce++;
+                hashVal = hash(info);
+                document.getElementById('h').innerText = getHash(hashVal);
+                document.getElementById('n').innerText = info.nonce;
+                document.getElementById('s').innerText = info.starting;
+                wait(3000);
+            }
+
+            hashVal.then(function (val) {
+                div.innerText = val;
+            });
 
             return div;
         }
 
-        const mine = (info, div) => {
-            let hashVal = hash(info);
+        const getHash = hashVal => {
+            let x = null;
 
-            hashVal.then(val => {
-                console.log(val, info.starting);
-                if (checkStatus(val, info.starting)) {
-                    div.innerText = val;
-                } else {
-                    info.nonce++;
-                    console.log(val, info.nonce)
-                    mine(info, div);
-                }
+            hashVal.then((val) => {
+                x = val;
             });
+
+            return x;
         }
 
         const checkStatus = (hashVal, starting) => {
-            if (hashVal.startsWith(starting)) {
-                return true;
-            }
+            hashVal.then(function (val) {
+                if (val.startsWith(starting)) {
+                    return true;
+                }
 
-            return false;
+                return false;
+            });
         }
 
         const addTimeDiv = (timestamp) => {
@@ -199,7 +222,7 @@
             div.classList.add('mb-3');
             div.innerText = "Nonce: "
             let p = document.createElement('div');
-            p.innerText = nonce;
+            p.innerText = (nonce == 0 ? '' : nonce);
             div.appendChild(p);
 
             return div;
@@ -246,7 +269,7 @@
             return hashHex;
         }
 
-        const wait = ms =>{
+        const wait = ms => {
             var start = new Date().getTime();
             var end = start;
             while(end < start + ms) {
