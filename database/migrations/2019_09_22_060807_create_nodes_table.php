@@ -15,6 +15,10 @@ class CreateNodesTable extends Migration
     {
         Schema::create('nodes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('type');
+            $table->string('ip');
+            $table->integer('area_id');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
         });
     }

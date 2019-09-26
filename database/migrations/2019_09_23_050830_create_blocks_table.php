@@ -15,6 +15,12 @@ class CreateBlocksTable extends Migration
     {
         Schema::create('blocks', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('hash');
+            $table->string('timestamp');
+            $table->unsignedBigInteger('nonce')->nullable();
+            $table->string('prev_hash')->nullable();
+            $table->longText('data')->nullable();
+            $table->string('difficulty');
             $table->timestamps();
         });
     }

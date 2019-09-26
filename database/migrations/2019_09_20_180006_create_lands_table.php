@@ -17,7 +17,7 @@ class CreateLandsTable extends Migration
             $table->bigIncrements('id');
             $table->string('location');
             $table->string('daag_no');
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('khatin_no');
             $table->string('dcr');
             $table->timestamps();

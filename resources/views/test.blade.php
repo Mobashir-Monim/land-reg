@@ -23,7 +23,7 @@
                             <div class="mb-3" id="prev-hash-0">
                                 Prev Hash: <br>
                             </div>
-                            <div  class="mb-3"id="data-0">
+                            <div  class="mb-3" id="data-0">
                                 Data:
                             </div>
                         </div>
@@ -40,7 +40,6 @@
                     Add Block
                 </div>
                 <div class="card-body">
-                    {{-- <input type="text" name="block_data" class="form-control textarea mb-3" placeholder="Block Data"> --}}
                     <textarea name="block_data" class="form-control mb-3" placeholder="Block Data" id="block_data"></textarea>
                     <input type="text" name="upper_limit" id="upper_limit" class="form-control mb-3" placeholder="Upper Limit">
                     <button class="btn btn-success w-100" onclick="addBlock()">Add Block</button>
@@ -230,6 +229,7 @@
 
         const hash = async (data) => {
             let info = JSON.stringify(data);
+            console.log(info, "moba");
 
             // encode as UTF-8
             const msgBuffer = new TextEncoder('utf-8').encode(info);
