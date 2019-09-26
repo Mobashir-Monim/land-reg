@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <a href="{{ 'reset-chain' }}" class="btn btn-danger w-100">Reset Chain</a>
+        </div>
+    </div>
+    <div class="row mt-3">
         <div class="col-md-12" id="blocks-container">
             <div class="row mb-3" id="row-0">
                 @foreach (App\Block::all() as $block)

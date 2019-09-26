@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/mine', 'BlockController@requestMine')->name('mine');
 Route::get('/blocks', 'BlockController@index')->name('blocks');
+Route::get('/reset-chain', 'BlockController@reset')->name('reset-chain');
 Route::get('/test', function () {
     $data['text'] = "Mobashir Monim";
     $data['hash'] = hash('sha256', $data['text']);
