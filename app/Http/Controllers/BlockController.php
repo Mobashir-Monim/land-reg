@@ -94,20 +94,21 @@ class BlockController extends Controller
 
     public function reset()
     {
-        $path = exec('pwd');
-        $dirs = explode('/', $path);
+        exec('/var/www/html/reset-db.sh');
+        // $path = exec('pwd');
+        // $dirs = explode('/', $path);
 
-        for ($i = 0; $i < sizeof($dirs) - 1; $i++) {
-            if ($i) {
-                $path = $path.'/'.$dirs[$i];
-            } else {
-                $path = '';
-            }
-        }
+        // for ($i = 0; $i < sizeof($dirs) - 1; $i++) {
+        //     if ($i) {
+        //         $path = $path.'/'.$dirs[$i];
+        //     } else {
+        //         $path = '';
+        //     }
+        // }
 
-        dd($path);
+        // dd($path);
 
-        dd(exec($path.'/reset-db.sh'));
+        // dd(exec($path.'/reset-db.sh'));
 
         return redirect(route('blocks'));
     }
