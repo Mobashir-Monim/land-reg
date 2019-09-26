@@ -21,6 +21,8 @@ class CreateBlocksTable extends Migration
             $table->string('prev_hash')->nullable();
             $table->longText('data')->nullable();
             $table->string('difficulty');
+            $table->datetime('starting_time');
+            $table->datetime('ending_time');
             $table->timestamps();
         });
     }

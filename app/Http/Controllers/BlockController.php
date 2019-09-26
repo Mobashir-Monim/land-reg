@@ -21,6 +21,8 @@ class BlockController extends Controller
                 'hash' => $hash,
                 'timestamp' => $timestamp,
                 'difficulty' => '0',
+                'starting_time' =>  Carbon::createFromTimestamp($timestamp/1000)->toDateTimeString(),
+                'ending_time' => Carbon::createFromTimestamp($timestamp/1000)->toDateTimeString(),
             ]);
         }
 
@@ -34,20 +36,25 @@ class BlockController extends Controller
 
     public function requestMine(Request $request)
     {
+        // return response()->json([
+        //     'status' => $request->all()
+        // ]);
         $timestamp = Carbon::now()->timestamp * 1000;
+        $start = Carbon::now()->toDateTimeString();
+
         $info = [
             'timestamp' => $timestamp,
             'prev_hash' => Block::orderBy('created_at', 'desc')->first()->hash,
             'nonce' => 0,
-            'data' => $request->data,
+            'data' => $request->block_data,
         ];
 
         $data = array();
 
         while(true) {
             $hash = hash('sha256', json_encode($info));
-
-            if ($this->startsWith($hash, $request->difficulty)) {
+            
+            if ($this->startsWith($hash, $request->upper_limit)) {
                 $data['hash'] = $hash;
                 $data['nonce'] = $info['nonce'];
     
@@ -57,21 +64,31 @@ class BlockController extends Controller
             $info['nonce']++;
         }
 
+        $end = Carbon::now()->toDateTimeString();
+
         $block = Block::create([
             'hash' => $data['hash'],
             'timestamp' => $timestamp,
             'nonce' => $data['nonce'],
             'prev_hash' => $info['prev_hash'],
-            'data' => $request->data,
-            'difficulty' => $request->difficulty,
+            'data' => $request->block_data,
+            'difficulty' => $request->upper_limit,
+            'starting_time' =>  $start,
+            'ending_time' => $end,
         ]);
 
-        return 'Mined!';
+        // return response()->json([
+        //     'status' => 'done',
+        //     'hash' => $hash,
+        //     'nonce' => $info['nonce'],
+        // ]);
+
+        return back();
     }
 
     public function startsWith($string, $startString) 
     { 
         $len = strlen($startString); 
-        return (substr($string, 0, $len) === $startString); 
+        return (substr($string, 0, $len) == $startString); 
     }
 }

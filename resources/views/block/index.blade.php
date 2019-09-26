@@ -34,34 +34,47 @@
 
 @section('scripts')
     <script>
-        const mine = () => setTimeout(function() {
+        const mine = () => setTimeout(async () => {
             console.log('before calling');
-            mineRequest();
+            const data = await postData('{{ route('mine') }}');
+            console.log(JSON.stringify(data));;
             console.log('after calling');
         }, 0);
 
-        const mineRequest = () => {
-            let url = '{{ route('mine') }}';
+        // try {
+        //     const data = await postData('{{ route('mine') }}');
+        //     console.log(JSON.stringify(data)); // JSON-string from `response.json()` call
+        // } catch (error) {
+        //     console.error(error);
+        // }
 
-            fetch(url, {
-                method: 'POST',
-                mode: 'cors',
-                cache: 'no-cache',
-                credentials: 'same-origin',
+        const postData = async (url) => {
+            // Default options are marked with *
+            let data = {
+                '_token': $('meta[name=csrf-token]').attr('content'),
+                // 'X-CSRF-TOKEN': '{{ Session::token() }}',
+                'upper_limit': document.getElementById('upper_limit').value,
+                'block_data': document.getElementById('block_data').value,
+            };
+
+            console.log(data);
+
+            const response = await fetch(url, {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                // credentials: 'same-origin', // include, *same-origin, omit
                 headers: {
                     'Content-Type': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                redirect: 'follow',
-                referrer: 'no-referrer',
-                body: JSON.stringify({
-                    'X-CSSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    'block_data': document.getElementById('block_data').value,
-                    'upper_limit': document.getElementById('upper_limit'),
-                })
+                // redirect: 'follow', // manual, *follow, error
+                // referrer: 'no-referrer', // no-referrer, *client
+                body: JSON.stringify(data) // body data type must match "Content-Type" header
             });
 
-            console.log('Request Sent');
+            return await response.json(); // parses JSON response into native JavaScript objects
         }
 
         const wait = ms =>{
