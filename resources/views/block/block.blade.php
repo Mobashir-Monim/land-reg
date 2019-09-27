@@ -19,6 +19,9 @@
             <div  class="mb-3">
                 Data: <br> {{ $block->data }}
             </div>
+            <div  class="mb-3">
+                Computation Time: <br> {{ $block->compTime }}
+            </div>
         </div>
     </div>
 </div>
