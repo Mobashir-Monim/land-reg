@@ -24,8 +24,13 @@ Route::get('/reset-chain', 'BlockController@reset')->name('reset-chain');
 Route::get('/js-blocks', function () {
     $data['text'] = "Mobashir Monim";
     $data['hash'] = hash('sha256', $data['text']);
+    
     return view('test', compact('data'));
-    $x = hexdec('99bad0b8d4e910e2e6a5ef9bb3fd843e3d58ef434348fd984b294cdc0d621925');
-    dd($x, $y, $x < $y, strlen(hash('sha256', 'This is the data')));
-    return hash('sha256', 'This is the data');
 })->name('js-blocks');
+
+Route::get('test', function () {
+    $data = array();
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $data['fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada'] = array();
+    dd($data, $ip);
+});
