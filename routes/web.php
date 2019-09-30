@@ -30,7 +30,8 @@ Route::get('/js-blocks', function () {
 
 Route::get('test', function () {
     $data = array();
-    $ip = $_SERVER['REMOTE_ADDR'];
+    // $ip = $_SERVER['REMOTE_ADDR'];
+    $ip = trim(shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
     $data['fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada'] = array();
     dd($data, $ip);
 });
