@@ -29,9 +29,18 @@ Route::get('/js-blocks', function () {
 })->name('js-blocks');
 
 Route::get('test', function () {
-    $data = array();
-    // $ip = $_SERVER['REMOTE_ADDR'];
-    $ip = trim(shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
-    $data['fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada'] = array();
-    dd($data, $ip);
+    set_time_limit(3660);
+    $start = Carbon\Carbon::now();
+
+    while (Carbon\Carbon::now()->diffInSeconds($start) <= 60) {
+        App\ComputeTester::create([]);
+    }
+
+    // $data = array();
+    // // $ip = $_SERVER['REMOTE_ADDR'];
+    // $ip = trim(shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
+    // $data['fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada'] = array();
+    // dd($data, $ip);
+
+    return "done";
 });
