@@ -32,7 +32,7 @@ Route::get('test', function () {
     set_time_limit(3660);
     $start = Carbon\Carbon::now();
 
-    while (Carbon\Carbon::now()->diffInSeconds($start) <= 60) {
+    while (Carbon\Carbon::now()->diffInSeconds($start) <= 3600) {
         App\ComputeTester::create([]);
     }
 
