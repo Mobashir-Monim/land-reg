@@ -42,5 +42,5 @@ Route::get('test', function () {
     // $data['fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada-fd08fe4cabe53c99e68895930ecf3af290cb16296339d54af3cf31a69f6acada'] = array();
     // dd($data, $ip);
 
-    return "done";
+    return count(App\ComputeTester::all());
 });
