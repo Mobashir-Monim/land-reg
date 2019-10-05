@@ -39,6 +39,7 @@ class BlockController extends Controller
         // return response()->json([
         //     'status' => $request->all()
         // ]);
+        set_time_limit(3660);
         $timestamp = Carbon::now()->timestamp * 1000;
         $start = Carbon::now()->toDateTimeString();
 
