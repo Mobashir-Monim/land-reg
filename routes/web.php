@@ -29,6 +29,12 @@ Route::get('/js-blocks', function () {
 })->name('js-blocks');
 
 Route::get('test', function () {
+    for ($i = 1; $i <= 3; $i++) {
+        $cmd = "cd .. ; php artisan serve --port=800$i";
+        exec($cmd);
+    }
+    dd('done');
+    dd(base64_encode(file_get_contents('https://www.taff2.com/uploads/TAF%20Bangladesh%20Project%20Briefing_final.pdf')));
     set_time_limit(3660);
     $start = Carbon\Carbon::now();
 
@@ -44,3 +50,5 @@ Route::get('test', function () {
 
     // return count(App\ComputeTester::all());
 });
+
+Route::get('test2', 'DAppTransactionsController@processTransaction');
