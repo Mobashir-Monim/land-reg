@@ -110,4 +110,15 @@ class BlockController extends Controller
 
         return redirect(route('blocks'));
     }
+
+    public function sendBlocks(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'Retrieved block',
+            'data' => [
+                'blocks' => Block::all(),
+            ],
+        ]);
+    }
 }

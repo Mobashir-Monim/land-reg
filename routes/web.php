@@ -29,11 +29,8 @@ Route::get('/js-blocks', function () {
 })->name('js-blocks');
 
 Route::get('test', function () {
-    for ($i = 1; $i <= 3; $i++) {
-        $cmd = "cd .. ; php artisan serve --port=800$i";
-        exec($cmd);
-    }
-    dd('done');
+    exec("cd .. ; php artisan migrate:rollback --step=1 ; php artisan migrate");
+    dd("done");
     dd(base64_encode(file_get_contents('https://www.taff2.com/uploads/TAF%20Bangladesh%20Project%20Briefing_final.pdf')));
     set_time_limit(3660);
     $start = Carbon\Carbon::now();
@@ -51,4 +48,14 @@ Route::get('test', function () {
     // return count(App\ComputeTester::all());
 });
 
-Route::get('test2', 'DAppTransactionsController@processTransaction');
+Route::get('/test2', 'MineController@mine');
+Route::get('/test3', function () {
+    dd(DB::table('nodes')
+    ->select('parent_id', DB::raw('count(*) as total'))
+    ->groupBy('parent_id')
+    ->get()->toArray());
+});
+// Route::get('/test2', function () {
+//     dd('here');
+// });
+Route::post('/mine/transaction', 'DAppTransactionsController@processTransaction')->name('mine.transaction');

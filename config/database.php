@@ -63,6 +63,21 @@ return [
             ]) : [],
         ],
 
+        'mysql2' => [
+            'driver' => 'mysql',
+            'host' => env('TDB_HOST'),
+            'port' => env('TDB_PORT', '3307'),
+            'database' => env('TDB_DATABSE'),
+            'username' => env('TDB_USERNAME'),
+            'password' => env('TDB_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+            'options'=>['mode'=>'ssl'],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

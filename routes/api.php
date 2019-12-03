@@ -17,4 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/elect/area', 'ElectionController@area')->name('elect.area');
+Route::group(['middleware' => ['verify-ip']], function () {
+    Route::post('/elect/area', 'ElectionController@area')->name('elect.area');
+    Route::post('/elect/cluster', 'ElectionController@cluster')->name('elect.cluster');
+    Route::post('/elect/node', 'ElectionController@node')->name('elect.node');
+    Route::post('/mine/block', 'MineController@mine')->name('mine.block');
+    Route::post('/chain/header', 'ChainController@sendLeading')->name('chain.header');
+    Route::get('/blocks/send', 'BlockController@sendBlocks')->name('blocks.send');
+});
