@@ -7,10 +7,23 @@ use App\Node;
 
 class MineController extends Controller
 {
+    public function processMine(Request $request)
+    {
+        // $ip = trim(shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
+        // $ip = $_SERVER['REMOTE_ADDR'];
+        // dd($ip);
+        set_time_limit(3660);
+        $chains_details = $this->findConsentingChain();
+        $this->truncateChain($chains_details);
+        dd($chains_details);
+        
+    }
+
+    // public function mine
+
     public function mine(Request $request)
     {
-        $chains_details = $this->findConsentingChain();
-        dd($chains_details);
+
     }
     
     public function findConsentingChain()
@@ -34,11 +47,11 @@ class MineController extends Controller
 
     public function geneticConsensus()
     {
-        $nodes = Node::all()->shuffle()->whereNotIn('ip', explode('//', request()->root())[1])->take(rand((1 + count(Node::all())), (3 * count(Node::all()) / 4)))->toArray();
+        $nodes = Node::all()->shuffle()->whereNotIn('ip', $_SERVER['REMOTE_ADDR'])->take(rand((1 + count(Node::all())), (3 * count(Node::all()) / 4)))->toArray();
         $chains_details = ['chains' => array(), 'ips' => array(), 'self' => (new \App\Http\Controllers\ChainController)->leadingChain()];
         
         foreach ($nodes as $node) {
-            $response = $this->postData("http://".$node['ip']."/api/chain/header", ['ip' => explode('//', request()->root())[1]]);
+            $response = $this->postData("http://".$node['ip']."/api/chain/header", ['ip' => $_SERVER['REMOTE_ADDR']]);
             $chains_details = $this->processChain($chains_details, $node['ip'], json_decode($response->getBody()->getContents())->data->chain);
         }
 
@@ -65,5 +78,7 @@ class MineController extends Controller
             $response = $this->fetchData("http://".$chains_details['ips'][$majority]."/api/blocks/send");
             Block::updateAll(json_decode($response->getBody()->getContents())->data->blocks);
         }
+
+        return;
     }
 }

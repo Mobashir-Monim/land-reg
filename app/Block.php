@@ -14,7 +14,7 @@ class Block extends BaseModel
 
     public static function updateAll($blocks)
     {
-        // exec("cd .. ; php artisan migrate:rollback --step=1 ; php artisan migrate");
+        exec("cd .. ; php artisan migrate:rollback --step=1 ; php artisan migrate");
 
         foreach ($blocks as $block) {
             // $block->id = $blocks[$key]->id;

@@ -48,7 +48,7 @@ Route::get('test', function () {
     // return count(App\ComputeTester::all());
 });
 
-Route::get('/test2', 'MineController@mine');
+Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
     dd(DB::table('nodes')
     ->select('parent_id', DB::raw('count(*) as total'))
