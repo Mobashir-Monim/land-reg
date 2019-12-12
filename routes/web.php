@@ -15,7 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
+
+Route::middleware(['auth', 'super-admin-only'])->group(function () { 
+    Route::get('/git-pull', 'NodesController@gitPull')->name('git.pull');
+
+    Route::get('/comp-dump', 'NodesController@compDump')->name('comp-dump');
+
+    Route::get('/mig-reseed', 'NodesController@reseed')->name('mig-reseed');
+});
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/mine', 'BlockController@requestMine')->name('mine');

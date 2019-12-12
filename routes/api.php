@@ -24,4 +24,19 @@ Route::group(['middleware' => ['verify-ip']], function () {
     Route::post('/mine/block', 'MineController@mine')->name('mine.block');
     Route::post('/chain/header', 'ChainController@sendLeading')->name('chain.header');
     Route::get('/blocks/send', 'BlockController@sendBlocks')->name('blocks.send');
+    Route::post('/git-pull', function () {
+        exec('git pull');
+    
+        return response()->json([
+            'success' => true,
+        ]);
+    })->name('git.pull');
+
+    Route::post('/comp-dump', function () {
+        dd(exec('cd .. ; ./composer-cmd.sh'));
+    })->name('comp-dump');
+
+    Route::post('/mig-reseed', function () {
+        exec('cd .. ; php artisan migrate:refresh --seed');
+    })->name('mig-reseed');
 });

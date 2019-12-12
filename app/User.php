@@ -6,12 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends BaseModel implements
-    AuthenticatableContract,
-    AuthorizableContract,
-    CanResetPasswordContrac
+class User extends Authenticatable
 {
-    use Notifiable, Authenticatable, Authorizable, CanResetPassword;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +16,7 @@ class User extends BaseModel implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone', 'nid', 'dob'
     ];
 
     /**
@@ -43,5 +40,16 @@ class User extends BaseModel implements
     public function roles()
     {
         return $this->belongsToMany('App\Role');
+    }
+
+    public function hasRole($role)
+    {
+        foreach ($this->roles as $r) {
+            if ($r->name == $role) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -19,6 +19,8 @@ class CreateNodesTable extends Migration
             $table->string('ip');
             $table->integer('area_id');
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->string('status')->default('idle');
+            $table->datetime('since')->nullable();
             $table->timestamps();
         });
     }
