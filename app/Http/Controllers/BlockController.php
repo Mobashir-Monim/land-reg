@@ -39,6 +39,7 @@ class BlockController extends Controller
         // return response()->json([
         //     'status' => $request->all()
         // ]);
+        dd($request->block_data);
         set_time_limit(3660);
         $timestamp = Carbon::now()->timestamp * 1000;
         $start = Carbon::now()->toDateTimeString();
@@ -85,12 +86,6 @@ class BlockController extends Controller
         // ]);
 
         return back();
-    }
-
-    public function startsWith($string, $startString) 
-    { 
-        $len = strlen($startString); 
-        return (substr($string, 0, $len) == $startString); 
     }
 
     public function reset()

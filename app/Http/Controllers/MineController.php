@@ -4,26 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Node;
+use Carbon\Carbon;
 
 class MineController extends Controller
 {
     public function processMine(Request $request)
     {
-        // $ip = trim(shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
-        // $ip = $_SERVER['REMOTE_ADDR'];
-        // dd($ip);
-        set_time_limit(3660);
+        set_time_limit(43260);
         $chains_details = $this->findConsentingChain();
         $this->truncateChain($chains_details);
         dd($chains_details);
-        
+        $this->mine($requeste->data);
     }
 
     // public function mine
 
-    public function mine(Request $request)
+    public function mine($data)
     {
+        $timestamp = Carbon::now()->timestamp * 1000;
+        $start = Carbon::now()->toDateTimeString();
+        $data['block_data']['timestamp'] = $timestamp;
+        $data['block_data']['prev_hash'] = Block::orderBy('created_at', 'desc')->first()->hash;
 
+        while(true) {
+            $data['hash'] = hash('sha256', json_encode($data['block_data']));
+            
+            if (Block::chainable($data))
+                break;
+    
+            $data['block_data']['nonce']++;
+        }
+
+        $end = Carbon::now()->toDateTimeString();
     }
     
     public function findConsentingChain()

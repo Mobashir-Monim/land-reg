@@ -50,10 +50,7 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
-    dd(DB::table('nodes')
-    ->select('parent_id', DB::raw('count(*) as total'))
-    ->groupBy('parent_id')
-    ->get()->toArray());
+    dd('Testing nothing');
 });
 // Route::get('/test2', function () {
 //     dd('here');

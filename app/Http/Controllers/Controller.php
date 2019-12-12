@@ -12,6 +12,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function startsWith($string, $startString) 
+    { 
+        return (substr($string, 0, strlen($startString)) == $startString);
+    }
+
     public function fetchData($url)
     {
 

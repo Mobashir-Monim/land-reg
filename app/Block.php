@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class Block extends BaseModel
 {
+    protected static $hexVals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+
     public function getcompTimeAttribute()
     {
         return Carbon::parse($this->starting_time)->diffInSeconds(Carbon::parse($this->ending_time)) . ' s';
@@ -31,5 +33,27 @@ class Block extends BaseModel
             // $block->save();
             $this->create([$block]);
         }
+    }
+
+    public static function generateDifficulty()
+    {
+        $difficulty = '';
+
+        for ($i = 0; $i <= rand(1, 8); $i++) {
+            $difficulty .= self::$hexVals[rand(0, 15)];
+        }
+
+        return $difficulty;
+    }
+
+    public static function chainable($data)
+    {
+        if (!(substr($string, 0, strlen($startString)) == $startString))
+            return false;
+
+        if (!is_null(Block::where('hash', $data['hash']->first())))
+            return false;
+        
+        return true;
     }
 }

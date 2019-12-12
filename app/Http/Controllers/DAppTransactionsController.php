@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transaction;
 use App\Node;
+use App\Block;
 
 class DAppTransactionsController extends Controller
 {
@@ -36,8 +37,6 @@ class DAppTransactionsController extends Controller
     {
         // $transaction = Transaction::create(['from' => $request->from, 'to' => $request->to, 'specifics' => $request->specifics]);
 
-        // save file if it exists
-
         $candidates = ['areas' => $this->getAreasArray(), 'clusters' => null, 'nodes' => null];
         $elected = ['area' => null, 'cluster' => null, 'node' => null];
 
@@ -50,7 +49,24 @@ class DAppTransactionsController extends Controller
             elseif ($key == 'clusters')
                 $candidates['nodes'] = $this->getNodesArray($elected[$singular]);
         }
+
+        $data = [
+            'hash' => '',
+            'upper_limit' => Block::generateDifficulty(),
+            'mine_limit' => null,
+            'block_data' => [
+                'txid' => $transaction->id,
+                'from' => $transaction->from,
+                'to' => $transaction->to,
+                'data' => [
+                    'specifics' => $transaction->specifics,
+                    'file' => base64_encode(file_get_contents($transaction->document)),
+                ],
+                'nonce' => 0,
+            ],
+        ];
         
+        // Fire and forget request
         dd("All election complete", $elected);
     }
 
