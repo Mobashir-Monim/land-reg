@@ -65,7 +65,8 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
-    dd('Testing nothing');
+    dd('Nothing in test');
+    return view('test3');
 });
 // Route::get('/test2', function () {
 //     dd('here');

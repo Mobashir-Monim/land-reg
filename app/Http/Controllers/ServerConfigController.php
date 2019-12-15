@@ -24,14 +24,18 @@ class ServerConfigController extends Controller
         $responses = array();
 
         foreach (Node::all() as $node) {
-            $data = [
-                'ip' => $request->ip(),
-                'name' => $request->name,
-                'description' => $request->description,
-                'value' => $request->value[$node->ip]
-            ];
-            $reponse = $response = $this->postData("http://$node->ip/api/server-config/store", $data);
-            $responses[$node->ip] = json_decode($response->getBody()->getContents())->success;
+            if ($node->ip == ServerConfig::where('name', 'ip')->first()->value) {
+                ServerConfig::create(['name' => $request->name, 'description' => $request->description, 'value' => $request->value[$node->ip]]);
+            } else {
+                $data = [
+                    'ip' => $request->ip(),
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'value' => $request->value[$node->ip]
+                ];
+                $reponse = $response = $this->postData("http://$node->ip/api/server-config/store", $data);
+                $responses[$node->ip] = json_decode($response->getBody()->getContents())->success;
+            }
         }
 
         dd(json_encode($responses));

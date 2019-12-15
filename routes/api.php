@@ -25,10 +25,11 @@ Route::group(['middleware' => ['verify-ip']], function () {
     Route::post('/chain/header', 'ChainController@sendLeading')->name('chain.header');
     Route::get('/blocks/send', 'BlockController@sendBlocks')->name('blocks.send');
     Route::post('/git-pull', function () {
-        exec('git pull');
+        $resp = exec('git pull');
     
         return response()->json([
             'success' => true,
+            'message' => $resp
         ]);
     })->name('git.pull');
 
@@ -39,6 +40,5 @@ Route::group(['middleware' => ['verify-ip']], function () {
     Route::post('/mig-reseed', function () {
         exec('cd .. ; php artisan migrate:refresh --seed');
     })->name('mig-reseed');
+    Route::post('/server-config/store', 'ServerConfigController@storeAPI')->name('server.config.store');
 });
-
-Route::post('/server-config/store', 'ServerConfigController@storeAPI')->name('server.config.store');
