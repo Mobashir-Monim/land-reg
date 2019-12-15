@@ -7,6 +7,11 @@
             <div class="card">
                 <div class="card-header">Nodes</div>
                 <div class="card-body">
+                    @isset($responses)
+                        <div class="row">
+                            <div class="col-md-12 my-3">{{ $responses }}</div>
+                        </div>
+                    @endisset
                     <div class="row">
                         <div class="col-md-12 my-3"><a href="{{ route('git.pull', ['node' => 'all']) }}" class="btn btn-secondary w-100">Pull All</a></div>
                     </div>

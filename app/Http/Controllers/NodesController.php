@@ -21,20 +21,14 @@ class NodesController extends Controller
         foreach (Node::all() as $node) {
             if ($node->ip == ServerConfig::getVal('ip')) {
                 $resp = exec('sudo su ; cd .. ; git pull');
-                $responses[$node->ip] = json_encode(['success' => true, 'message' => $resp]);
+                $responses[$node->ip] = ['success' => true, 'message' => $resp];
             } else {
                 $response = $this->postData("http://$node->ip/api/git-pull", ['ip' => ServerConfig::getVal('ip')]);
                 $responses[$node->ip] = json_decode($response->getBody()->getContents());
             }
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Responses as presented in data segment',
-            'data' => [
-                'responses' => $responses,
-            ]
-        ]);
+        return back()->with('responses', $responses);
     }
 
     public function pullCode(Request $request)
