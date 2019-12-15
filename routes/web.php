@@ -67,7 +67,10 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
-    dd(exec('whoami ; sudo su ; whoami ; git pull'));
+    $before = exec('whoami');
+    $after = exec('sudo su ; whoami');
+    $pull = exec('git pull');
+    dd();
     // dd('Nothing in test');
     return view('test3');
 });
