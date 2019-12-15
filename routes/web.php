@@ -22,9 +22,11 @@ Route::middleware(['auth', 'super-admin-only'])->group(function () {
     Route::get('/server-config/index', 'ServerConfigController@index')->name('server.config.index');
     Route::get('/server-config/create', 'ServerConfigController@create')->name('server.config.create');
     Route::post('/server-config/create', 'ServerConfigController@store')->name('server.config.create');
+    Route::get('/server-config/update/{name}', 'ServerConfigController@edit')->name('server.config.alter');
+    Route::post('/server-config/update/{name}', 'ServerConfigController@update')->name('server.config.alter');
     
     Route::get('/git-pull/index', 'NodesController@gitIndex')->name('git.pull.index');
-    Route::get('/git-pull', 'NodesController@gitPull')->name('git.pull');
+    Route::get('/git-pull/{node}', 'NodesController@gitPull')->name('git.pull');
 
     Route::get('/comp-dump', 'NodesController@compDump')->name('comp.dump');
 
@@ -65,7 +67,7 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
-    dd('Nothing in test');
+    // dd('Nothing in test');
     return view('test3');
 });
 // Route::get('/test2', function () {

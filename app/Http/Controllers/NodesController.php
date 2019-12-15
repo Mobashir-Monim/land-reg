@@ -10,7 +10,7 @@ class NodesController extends Controller
 {
     public function gitIndex(Request $responses)
     {
-        return view();
+        return view('nodes.git.index');
     }
 
     public function gitPull(Request $request)
@@ -19,8 +19,13 @@ class NodesController extends Controller
         $responses = array();
 
         foreach (Node::all() as $node) {
-            $response = $this->postData("http://$node->ip/api/git-pull", ['ip' => ServerConfig::where('name', 'ip')->first()->value]);
-            $responses[$node->ip] = json_decode($response->getBody()->getContents());
+            if ($node->ip == ServerConfig::getVal('ip')) {
+                $resp = exec('sudo su ; cd .. ; git pull');
+                $responses[$node->ip] = json_encode(['success' => true, 'message' => $resp]);
+            } else {
+                $response = $this->postData("http://$node->ip/api/git-pull", ['ip' => ServerConfig::getVal('ip')]);
+                $responses[$node->ip] = json_decode($response->getBody()->getContents());
+            }
         }
 
         return response()->json([
@@ -32,13 +37,23 @@ class NodesController extends Controller
         ]);
     }
 
+    public function pull(Request $request)
+    {
+        $resp = exec('sudo su ; cd .. ; git pull');
+
+        return response()->json([
+            'success' => true,
+            'message' => $resp,
+        ]);
+    }
+
     public function compDump(Request $request)
     {
         set_time_limit(600);
         $responses = array();
         
         foreach (Node::all() as $node) {
-            $response = $this->postData("http://$node->ip/api/comp-dump", ['ip' => $request->ip()]);
+            $response = $this->postData("http://$node->ip/api/comp-dump", ['ip' => ServerConfig::getVal('ip')]);
             $responses[$node->ip] = json_decode($response->getBody()->getContents())->success;
         }
 
@@ -57,7 +72,7 @@ class NodesController extends Controller
         $responses = array();
         
         foreach (Node::all() as $node) {
-            $response = $this->postData("http://$node->ip/api/mig-reseed", ['ip' => $request->ip()]);
+            $response = $this->postData("http://$node->ip/api/mig-reseed", ['ip' => ServerConfig::getVal('ip')]);
             $responses[$node->ip] = json_decode($response->getBody()->getContents())->success;
         }
 

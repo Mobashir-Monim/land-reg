@@ -24,14 +24,7 @@ Route::group(['middleware' => ['verify-ip']], function () {
     Route::post('/mine/block', 'MineController@mine')->name('mine.block');
     Route::post('/chain/header', 'ChainController@sendLeading')->name('chain.header');
     Route::get('/blocks/send', 'BlockController@sendBlocks')->name('blocks.send');
-    Route::post('/git-pull', function () {
-        $resp = exec('git pull');
-    
-        return response()->json([
-            'success' => true,
-            'message' => $resp
-        ]);
-    })->name('git.pull');
+    Route::post('/git-pull', 'NodesController@pullCode')->name('git.pull');
 
     Route::post('/comp-dump', function () {
         dd(exec('cd .. ; ./composer-cmd.sh'));
@@ -40,5 +33,7 @@ Route::group(['middleware' => ['verify-ip']], function () {
     Route::post('/mig-reseed', function () {
         exec('cd .. ; php artisan migrate:refresh --seed');
     })->name('mig-reseed');
+
     Route::post('/server-config/store', 'ServerConfigController@storeAPI')->name('server.config.store');
+    Route::post('/server-config/fetch', 'ServerConfigController@show')->name('server.config.fetch');
 });

@@ -24,11 +24,12 @@ class ServerConfigController extends Controller
         $responses = array();
 
         foreach (Node::all() as $node) {
-            if ($node->ip == ServerConfig::where('name', 'ip')->first()->value) {
+            if ($node->ip == ServerConfig::getVal('ip')) {
                 ServerConfig::create(['name' => $request->name, 'description' => $request->description, 'value' => $request->value[$node->ip]]);
+                $responses[$node->ip] = ['success' => true, 'message' => 'self'];   
             } else {
                 $data = [
-                    'ip' => $request->ip(),
+                    'ip' => ServerConfig::getVal('ip'),
                     'name' => $request->name,
                     'description' => $request->description,
                     'value' => $request->value[$node->ip]
@@ -53,14 +54,31 @@ class ServerConfigController extends Controller
         ]);
     }
 
-    public function show(ServerConfig $serverConfig)
+    public function show(Request $request)
     {
-        //
+        return response()->json([
+            'success' => true,
+            'message' => 'Retrieved '.$request->data['name'],
+            'data' => [
+                'value' => ServerConfig::getVal($request->data['name']),
+            ],
+        ]);
     }
 
-    public function edit(ServerConfig $serverConfig)
+    public function edit(Request $request, $name)
     {
-        //
+        $responses = array();
+
+        foreach (Node::all() as $node) {
+            if ($node->ip == ServerConfig::getVal('ip')) {
+                $responses[$node->ip] = ServerConfig::getVal($name);
+            } else {
+                $reponse = $response = $this->postData("http://$node->ip/api/server-config/fetch", ['ip' => ServerConfig::getVal('ip'), 'name' => $name]);
+                $responses[$node->ip] = json_decode($response->getBody()->getContents())->data['value'];
+            }
+        }
+
+        return view('nodes.config.alter', compact('responses'));
     }
 
     public function update(Request $request, ServerConfig $serverConfig)
