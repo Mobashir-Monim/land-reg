@@ -37,7 +37,7 @@ class NodesController extends Controller
         ]);
     }
 
-    public function pull(Request $request)
+    public function pullCode(Request $request)
     {
         $resp = exec('sudo su ; cd .. ; git pull');
 
