@@ -14,7 +14,7 @@ class NodesController extends Controller
         
         foreach (Node::all() as $node) {
             $response = $this->postData("http://$node->ip/api/git-pull", ['ip' => $request->ip()]);
-            $responses[$node->ip] = json_decode($response->getBody()->getContents())->success;
+            $responses[$node->ip] = json_decode($response->getBody()->getContents());
         }
 
         return response()->json([
