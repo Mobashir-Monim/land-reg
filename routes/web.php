@@ -67,10 +67,11 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
-    $before = exec('whoami');
-    $after = exec('sudo su ; whoami');
-    $pull = exec('git pull');
-    dd($before, $after, $pull);
+    // $before = exec('whoami');
+    // $after = exec('sudo su ; whoami');
+    // $pull = exec('git pull');
+    // dd(exec("sudo -u www-data git pull ; echo 'mobashirmonim@gmail.com' ; echo '$00393294756134@cCx'"));
+    // dd($before, $after, $pull);
     // dd('Nothing in test');
     return view('test3');
 });
