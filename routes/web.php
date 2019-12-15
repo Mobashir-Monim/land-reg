@@ -70,7 +70,7 @@ Route::get('/test3', function () {
     $before = exec('whoami');
     $after = exec('sudo su ; whoami');
     $pull = exec('git pull');
-    dd();
+    dd($before, $after, $pull);
     // dd('Nothing in test');
     return view('test3');
 });
