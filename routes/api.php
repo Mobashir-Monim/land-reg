@@ -40,3 +40,5 @@ Route::group(['middleware' => ['verify-ip']], function () {
         exec('cd .. ; php artisan migrate:refresh --seed');
     })->name('mig-reseed');
 });
+
+Route::post('/server-config/store', 'ServerConfigController@storeAPI')->name('server.config.store');

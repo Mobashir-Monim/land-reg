@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Node;
+use App\ServerConfig;
 
 class NodesController extends Controller
 {
+    public function gitIndex(Request $responses)
+    {
+        return view();
+    }
+
     public function gitPull(Request $request)
     {
         set_time_limit(600);
         $responses = array();
-        dd($_SERVER['REMOTE_ADDR'], $request->root()->ip());
+
         foreach (Node::all() as $node) {
-            $response = $this->postData("http://$node->ip/api/git-pull", ['ip' => $request->ip()]);
+            $response = $this->postData("http://$node->ip/api/git-pull", ['ip' => ServerConfig::where('name', 'ip')->first()->value]);
             $responses[$node->ip] = json_decode($response->getBody()->getContents());
         }
 

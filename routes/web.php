@@ -17,12 +17,18 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::middleware(['auth', 'super-admin-only'])->group(function () { 
+Route::middleware(['auth', 'super-admin-only'])->group(function () {
+    // Server Config Routes
+    Route::get('/server-config/index', 'ServerConfigController@index')->name('server.config.index');
+    Route::get('/server-config/create', 'ServerConfigController@create')->name('server.config.create');
+    Route::post('/server-config/create', 'ServerConfigController@store')->name('server.config.create');
+    
+    Route::get('/git-pull/index', 'NodesController@gitIndex')->name('git.pull.index');
     Route::get('/git-pull', 'NodesController@gitPull')->name('git.pull');
 
-    Route::get('/comp-dump', 'NodesController@compDump')->name('comp-dump');
+    Route::get('/comp-dump', 'NodesController@compDump')->name('comp.dump');
 
-    Route::get('/mig-reseed', 'NodesController@reseed')->name('mig-reseed');
+    Route::get('/mig-reseed', 'NodesController@reseed')->name('mig.reseed');
 });
 
 
