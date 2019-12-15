@@ -11,7 +11,7 @@ class NodesController extends Controller
     {
         set_time_limit(600);
         $responses = array();
-        dd($_SERVER['REMOTE_ADDR']);
+        dd($_SERVER['REMOTE_ADDR'], $request->root()->ip());
         foreach (Node::all() as $node) {
             $response = $this->postData("http://$node->ip/api/git-pull", ['ip' => $request->ip()]);
             $responses[$node->ip] = json_decode($response->getBody()->getContents());
