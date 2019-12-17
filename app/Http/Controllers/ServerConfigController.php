@@ -129,15 +129,19 @@ class ServerConfigController extends Controller
             if ($node->ip == $this->selfIP()) {
                 $responses[$node->ip] = ServerConfig::getVal($name);
                 $config['name'] = $name;
-                dd(ServerConfig::where('name', $name)->first(), $name, ServerConfig::all());
-                $config['description'] = ServerConfig::where('name', $name)->first()->description;
+                
+                try {
+                    $config['description'] = ServerConfig::where('name', $name)->first()->description;
+                } catch (\Exception $e) {
+                    $config['description'] = null;
+                }
             } else {
                 $reponse = $response = $this->postData("http://$node->ip/api/server-config/fetch", ['ip' => $this->selfIP(), 'name' => $name]);
                 $responses[$node->ip] = json_decode($response->getBody()->getContents());
             }
         }
 
-        return view('nodes.config.alter', compact('responses'));
+        return view('nodes.config.alter', compact('responses', 'config'));
     }
 
     public function update(Request $request, ServerConfig $serverConfig)

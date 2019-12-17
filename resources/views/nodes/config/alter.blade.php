@@ -11,10 +11,10 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 my-3">
-                                <input type="text" name="name" class="form-control" placeholder="Name" value="{{ $config->name }}">
+                                <input type="text" name="name" class="form-control" placeholder="Name" value="{{ $config['name'] }}">
                             </div>
                             <div class="col-md-6 my-3">
-                                <textarea name="description" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
+                                <textarea name="description" class="form-control" cols="30" rows="10" placeholder="Description">{{ is_null($config['description']) ? "" : $config['description'] }}</textarea>
                             </div>
                         </div>
 
