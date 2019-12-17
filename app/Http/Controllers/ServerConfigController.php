@@ -130,7 +130,7 @@ class ServerConfigController extends Controller
                 $responses[$node->ip] = ServerConfig::getVal($name);
             } else {
                 $reponse = $response = $this->postData("http://$node->ip/api/server-config/fetch", ['ip' => ServerConfig::getVal('ip'), 'name' => $name]);
-                $responses[$node->ip] = json_decode($response->getBody()->getContents())->data['value'];
+                $responses[$node->ip] = json_decode($response->getBody()->getContents());
             }
         }
 
