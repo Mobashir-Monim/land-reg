@@ -19,6 +19,7 @@ Auth::routes(['register' => false]);
 
 Route::middleware(['auth', 'super-admin-only'])->group(function () {
     // Server Config Routes
+    Route::get('/server-config/all', 'ServerConfigController@configAll')->name('server.config.all');
     Route::get('/server-config/index', 'ServerConfigController@index')->name('server.config.index');
     Route::get('/server-config/create', 'ServerConfigController@create')->name('server.config.create');
     Route::post('/server-config/create', 'ServerConfigController@store')->name('server.config.create');

@@ -10,16 +10,58 @@ class ServerConfigController extends Controller
 {
     public function configAll(Request $request)
     {
+        $responses = array();
 
+        foreach (Node::all() as $node) {
+            if ($node->ip == ServerConfig::getVal('ip') || is_null(ServerConfig::getVal('ip'))) {
+                $responses[$node->ip] = $this->selfConfig();
+            } else {
+                $reponse = $response = $this->postData("http://$node->ip/api/server-config/self", ['ip' => ServerConfig::getVal('ip')]);
+                $responses[$node->ip] = json_decode($response->getBody()->getContents());
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Done calling',
+            'responses' => $responses,
+        ]);
     }
 
-    public function selfConfig(Request $request)
+    public function callSelfConfig(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'message' => $this->selfConfig(),
+        ]);
+    }
+
+    public function selfConfig()
     {
         preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
         $externalIp = $m[1];
 
-        ServerConfig::create(['name' => 'ip', 'description' => 'Internet Protocol of server in IPv4', 'value' => $externalIp]);
-        
+        $node = Node::getNode($externalIp);
+        $type = $node->type == 1 ? 'Council' : ($node->type == 2 ? 'Information' : 'Computational');
+        $name = $node->type == 1 ? 'Council '.$node->area_id : ($node->type == 2 ? 'Information '.$node->area_id.' - '.$node->childNumber() : 'Computational '.$node->area_id.' - '.$node->parent->childNumber().' - '.$node->childNumber());
+        $items = [
+            ['name' => 'ip', 'description' => 'Internet Protocol of server in IPv4', 'value' => $externalIp],
+            ['name' => 'area', 'description' => 'The zone of the node in the architecture', 'value' => $node->area_id],
+            ['name' => 'type', 'description' => 'The type of the node in the hierarchy', 'value' => $type],
+            ['name' => 'name', 'description' => 'The name of the node in the architecture', 'value' => $name],
+        ];
+        $resp = array();
+
+        foreach ($items as $item) {
+            try {
+                ServerConfig::create($item);
+                array_push($resp, $item['name'].' set');
+            } catch (\Exception $e) {
+                array_push($resp, $item['name'].' already set');
+            }
+        }
+
+        return $resp;
     }
 
     public function index()

@@ -21,8 +21,16 @@ class Node extends BaseModel
         return $this->where('ip', $ip)->first();
     }
 
-    public function getType()
+    public function childNumber()
     {
-        
+        if ($this->parent == null) {
+            return null;
+        }
+
+        foreach ($this->parent->children as $key => $child) {
+            if ($child->ip == $this->ip) {
+                return ($key + 1);
+            }
+        }
     }
 }
