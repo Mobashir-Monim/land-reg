@@ -28,6 +28,8 @@ class NodesController extends Controller
             }
         }
 
+        dd($responses);
+
         return back()->with('responses', $responses);
     }
 
