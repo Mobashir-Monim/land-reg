@@ -70,7 +70,7 @@ Route::get('/test3', function () {
     return view('test3');
 });
 Route::get('/test4', function () {
-    exec('pwd ; cd .. ; pwd ; git pull https://ingeniousartist:01552344763@gitlab.com/mobashir-monim/land-reg ; pwd', $resp);
+    exec('pwd ; cd .. ; pwd ; sudo -u www-data git pull https://ingeniousartist:01552344763@gitlab.com/mobashir-monim/land-reg ; pwd', $resp);
     dd($resp);
 });
 Route::post('/mine/transaction', 'DAppTransactionsController@processTransaction')->name('mine.transaction');
