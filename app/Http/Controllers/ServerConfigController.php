@@ -16,7 +16,7 @@ class ServerConfigController extends Controller
             if ($node->ip == ServerConfig::getVal('ip') || is_null(ServerConfig::getVal('ip'))) {
                 $responses[$node->ip] = $this->selfConfig();
             } else {
-                $reponse = $response = $this->postData("http://$node->ip/api/server-config/self", ['ip' => ServerConfig::getVal('ip')]);
+                $response = $this->postData("http://$node->ip/api/server-config/self", ['ip' => ServerConfig::getVal('ip')]);
                 $responses[$node->ip] = json_decode($response->getBody()->getContents());
             }
         }

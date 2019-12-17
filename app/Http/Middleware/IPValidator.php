@@ -19,7 +19,9 @@ class IPValidator
             return response()->json([
                 'success' => false,
                 'message' => "IP not recognized",
-                'request' => $request->all(),
+                'request-all' => $request->all(),
+                'request-data' => $request->data,
+                'request' => $request,
             ]);
         }
         
