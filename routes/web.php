@@ -67,7 +67,7 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
-    dd(exec("cd .. ; ./git-pull.sh"));
+    dd(exec("git pull https://ingeniousartist:01552344763@gitlab.com/mobashir-monim/land-reg"));
     return view('test3');
 });
 // Route::get('/test2', function () {
