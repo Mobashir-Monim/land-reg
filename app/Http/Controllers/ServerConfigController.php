@@ -123,10 +123,13 @@ class ServerConfigController extends Controller
     public function edit(Request $request, $name)
     {
         $responses = array();
+        $config = array();
 
         foreach (Node::all() as $node) {
             if ($node->ip == $this->selfIP()) {
                 $responses[$node->ip] = ServerConfig::getVal($name);
+                $config['name'] = $name;
+                $config['description'] = ServerConfig::getConf($name)->description;
             } else {
                 $reponse = $response = $this->postData("http://$node->ip/api/server-config/fetch", ['ip' => $this->selfIP(), 'name' => $name]);
                 $responses[$node->ip] = json_decode($response->getBody()->getContents());
