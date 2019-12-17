@@ -44,7 +44,6 @@ class NodesController extends Controller
 
         $response = $this->postData("http://$last->ip/api/mig-reseed", ['ip' => $this->selfIP()]);
         $responses[$node->ip] = json_decode($response->getBody()->getContents());
-        (new ServerConfigController)->configAll();
 
         return response()->json([
             'success' => true,
