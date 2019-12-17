@@ -14,7 +14,7 @@ class NodesController extends Controller
         $responses = array();
         
         foreach (Node::all() as $node) {
-            $response = $this->postData("http://$node->ip/api/comp-dump", ['ip' => ServerConfig::getVal('ip')]);
+            $response = $this->postData("http://$node->ip/api/comp-dump", ['ip' => $this->selfIP()]);
             $responses[$node->ip] = json_decode($response->getBody()->getContents());
         }
 
@@ -34,15 +34,15 @@ class NodesController extends Controller
         $last = null;
         
         foreach (Node::all() as $node) {
-            if ($node->ip == ServerConfig::getVal('ip')) {
+            if ($node->ip == $this->selfIP()) {
                 $last = $node;
             } else {
-                $response = $this->postData("http://$node->ip/api/mig-reseed", ['ip' => ServerConfig::getVal('ip')]);
+                $response = $this->postData("http://$node->ip/api/mig-reseed", ['ip' => $this->selfIP()]);
                 $responses[$node->ip] = json_decode($response->getBody()->getContents());
             }
         }
 
-        $response = $this->postData("http://$last->ip/api/mig-reseed", ['ip' => ServerConfig::getVal('ip')]);
+        $response = $this->postData("http://$last->ip/api/mig-reseed", ['ip' => $this->selfIP()]);
         $responses[$node->ip] = json_decode($response->getBody()->getContents());
         (new ServerConfigController)->configAll();
 

@@ -8,15 +8,15 @@ use App\Node;
 
 class ServerConfigController extends Controller
 {
-    public function configAll()
+    public function configAll(Request $request)
     {
         $responses = array();
 
         foreach (Node::all() as $node) {
-            if ($node->ip == ServerConfig::getVal('ip') || is_null(ServerConfig::getVal('ip'))) {
+            if ($node->ip == $this->selfIP() || is_null($this->selfIP())) {
                 $responses[$node->ip] = $this->selfConfig();
             } else {
-                $response = $this->postData("http://$node->ip/api/server-config/self", ['ip' => ServerConfig::getVal('ip')]);
+                $response = $this->postData("http://$node->ip/api/server-config/self", ['ip' => $this->selfIP()]);
                 $responses[$node->ip] = json_decode($response->getBody()->getContents());
             }
         }
@@ -39,9 +39,7 @@ class ServerConfigController extends Controller
 
     public function selfConfig()
     {
-        preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
-        $externalIp = $m[1];
-
+        $externalIp = $this->selfIP();
         $node = Node::getNode($externalIp);
         $type = $node->type == 1 ? 'Council' : ($node->type == 2 ? 'Information' : 'Computational');
         $name = $node->type == 1 ? 'Council '.$node->area_id : ($node->type == 2 ? 'Information '.$node->area_id.' - '.$node->childNumber() : 'Computational '.$node->area_id.' - '.$node->parent->childNumber().' - '.$node->childNumber());
@@ -81,12 +79,12 @@ class ServerConfigController extends Controller
         $responses = array();
 
         foreach (Node::all() as $node) {
-            if ($node->ip == ServerConfig::getVal('ip')) {
+            if ($node->ip == $this->selfIP()) {
                 ServerConfig::create(['name' => $request->name, 'description' => $request->description, 'value' => $request->value[$node->ip]]);
                 $responses[$node->ip] = ['success' => true, 'message' => 'self'];   
             } else {
                 $data = [
-                    'ip' => ServerConfig::getVal('ip'),
+                    'ip' => $this->selfIP(),
                     'name' => $request->name,
                     'description' => $request->description,
                     'value' => $request->value[$node->ip]
@@ -127,10 +125,10 @@ class ServerConfigController extends Controller
         $responses = array();
 
         foreach (Node::all() as $node) {
-            if ($node->ip == ServerConfig::getVal('ip')) {
+            if ($node->ip == $this->selfIP()) {
                 $responses[$node->ip] = ServerConfig::getVal($name);
             } else {
-                $reponse = $response = $this->postData("http://$node->ip/api/server-config/fetch", ['ip' => ServerConfig::getVal('ip'), 'name' => $name]);
+                $reponse = $response = $this->postData("http://$node->ip/api/server-config/fetch", ['ip' => $this->selfIP(), 'name' => $name]);
                 $responses[$node->ip] = json_decode($response->getBody()->getContents());
             }
         }

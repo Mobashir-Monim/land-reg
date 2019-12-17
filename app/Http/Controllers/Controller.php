@@ -22,6 +22,12 @@ class Controller extends BaseController
 
     }
 
+    public function selfIP()
+    {
+        preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
+        return $m[1];
+    }
+
     public function postData($url, $data)
     {
         $client = new Client();
