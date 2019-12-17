@@ -33,7 +33,7 @@ class NodesController extends Controller
 
     public function pullCode(Request $request)
     {
-        $resp = exec('sudo su ; cd .. ; git pull');
+        exec('cd .. ; git pull https://ingeniousartist:01552344763@gitlab.com/mobashir-monim/land-reg', $resp);
 
         return response()->json([
             'success' => true,
