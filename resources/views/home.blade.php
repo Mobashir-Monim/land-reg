@@ -19,7 +19,7 @@
                             <a href="{{ route('comp.dump') }}" class="btn btn-success w-100">Refresh System</a>
                         </div>
                         <div class="col-md-6 my-3">
-                            <a href="{{ route('comp.dump') }}" class="btn btn-warning w-100">Config All</a>
+                            <a href="{{ route('server.config.all') }}" class="btn btn-warning w-100">Config All</a>
                         </div>
                     </div>
                 </div>
