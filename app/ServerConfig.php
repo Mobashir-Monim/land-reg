@@ -11,7 +11,7 @@ class ServerConfig extends BaseModel
         try {
             return self::getConf($name)->value;
         } catch (\Exception $e) {
-            return [null, $e];
+            return [null, $e, $name, self::getConf($name)];
         }
     }
 
