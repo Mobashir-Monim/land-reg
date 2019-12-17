@@ -24,13 +24,10 @@ Route::middleware(['auth', 'super-admin-only'])->group(function () {
     Route::post('/server-config/create', 'ServerConfigController@store')->name('server.config.create');
     Route::get('/server-config/update/{name}', 'ServerConfigController@edit')->name('server.config.alter');
     Route::post('/server-config/update/{name}', 'ServerConfigController@update')->name('server.config.alter');
-    
-    Route::get('/git-pull/index', 'NodesController@gitIndex')->name('git.pull.index');
-    Route::get('/git-pull/{node}', 'NodesController@gitPull')->name('git.pull');
 
     Route::get('/comp-dump', 'NodesController@compDump')->name('comp.dump');
 
-    Route::get('/mig-reseed', 'NodesController@reseed')->name('mig.reseed');
+    Route::get('/mig-reseed', 'NodesController@dbCleanIndex')->name('mig.reseed');
 });
 
 
@@ -68,9 +65,5 @@ Route::get('test', function () {
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
     return view('test3');
-});
-Route::get('/test4', function () {
-    exec('pwd ; cd .. ; pwd ; sudo -u www-data git pull https://ingeniousartist:01552344763@gitlab.com/mobashir-monim/land-reg ; pwd', $resp);
-    dd($resp, "done");
 });
 Route::post('/mine/transaction', 'DAppTransactionsController@processTransaction')->name('mine.transaction');

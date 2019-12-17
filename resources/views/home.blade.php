@@ -13,9 +13,6 @@
                             <a href="{{ route('server.config.index') }}" class="btn btn-danger w-100">Config Servers</a>
                         </div>
                         <div class="col-md-6 my-3">
-                            <a href="{{ route('git.pull.index') }}" class="btn btn-warning w-100">Pull Code</a>
-                        </div>
-                        <div class="col-md-6 my-3">
                             <a href="{{ route('mig.reseed') }}" class="btn btn-primary w-100">Refresh DB</a>
                         </div>
                         <div class="col-md-6 my-3">

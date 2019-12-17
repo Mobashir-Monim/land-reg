@@ -11,7 +11,7 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 my-3">
-                                <input type="text" name="name" class="form-control" placeholder="Name">
+                                <input type="text" name="name" class="form-control" placeholder="Name" value="{{ $config->name }}">
                             </div>
                             <div class="col-md-6 my-3">
                                 <textarea name="description" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
@@ -22,7 +22,7 @@
                             <div class="row my-3">
                                 <div class="col-md-4 my-auto">{{ $node->ip }}</div>
                                 <div class="col-md-8">
-                                    <input type="text" name="value[{{ $node->ip }}]" class="form-control" placeholder="Value" value="{{ $responses[$node->ip] }}">
+                                    <input type="text" name="value[{{ $node->ip }}]" class="form-control" placeholder="Value" value="{{ $responses[$node->ip] }}" value="{{ $responses[$node->ip] }}">
                                 </div>
                             </div>
                         @endforeach

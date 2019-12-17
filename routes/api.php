@@ -24,7 +24,6 @@ Route::group(['middleware' => ['verify-ip']], function () {
     Route::post('/mine/block', 'MineController@mine')->name('mine.block');
     Route::post('/chain/header', 'ChainController@sendLeading')->name('chain.header');
     Route::get('/blocks/send', 'BlockController@sendBlocks')->name('blocks.send');
-    Route::post('/git-pull', 'NodesController@pullCode')->name('git.pull');
 
     Route::post('/comp-dump', function () {
         dd(exec('cd .. ; ./composer-cmd.sh'));
