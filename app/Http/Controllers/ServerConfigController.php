@@ -33,6 +33,7 @@ class ServerConfigController extends Controller
         return response()->json([
             'success' => true,
             'message' => $this->selfConfig(),
+            'return' => $request->all(),
         ]);
     }
 
