@@ -129,7 +129,7 @@ class ServerConfigController extends Controller
             if ($node->ip == $this->selfIP()) {
                 $responses[$node->ip] = ServerConfig::getVal($name);
                 $config['name'] = $name;
-                dd(ServerConfig::where('name', $name)->first(), $name);
+                dd(ServerConfig::where('name', $name)->first(), $name, ServerConfig::all());
                 $config['description'] = ServerConfig::where('name', $name)->first()->description;
             } else {
                 $reponse = $response = $this->postData("http://$node->ip/api/server-config/fetch", ['ip' => $this->selfIP(), 'name' => $name]);
