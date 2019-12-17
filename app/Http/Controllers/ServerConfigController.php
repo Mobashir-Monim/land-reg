@@ -18,6 +18,7 @@ class ServerConfigController extends Controller
         preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
         $externalIp = $m[1];
 
+        ServerConfig::create(['name' => 'ip', 'description' => 'Internet Protocol of server in IPv4', 'value' => $externalIp]);
         
     }
 

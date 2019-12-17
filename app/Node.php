@@ -15,4 +15,14 @@ class Node extends BaseModel
     {
         return $this->belongsTo('App\Node', 'parent_id');
     }
+
+    public static function getNode($ip)
+    {
+        return $this->where('ip', $ip)->first();
+    }
+
+    public function getType()
+    {
+        
+    }
 }

@@ -33,49 +33,49 @@ class NodesTableSeeder extends Seeder
             ['type' => 2, 'ip' => '54.179.163.68', 'area_id' => 3, 'parent_id' => 3],
 
             // Computational Nodes 1 - 4
-            ['type' => 2, 'ip' => '18.136.204.235', 'area_id' => 1, 'parent_id' => 4],
-            ['type' => 2, 'ip' => '3.1.218.167', 'area_id' => 1, 'parent_id' => 4],
-            ['type' => 2, 'ip' => '54.179.175.217', 'area_id' => 1, 'parent_id' => 4],
+            ['type' => 3, 'ip' => '18.136.204.235', 'area_id' => 1, 'parent_id' => 4],
+            ['type' => 3, 'ip' => '3.1.218.167', 'area_id' => 1, 'parent_id' => 4],
+            ['type' => 3, 'ip' => '54.179.175.217', 'area_id' => 1, 'parent_id' => 4],
 
             // Computational Nodes 1 - 5
-            ['type' => 2, 'ip' => '3.0.52.200', 'area_id' => 1, 'parent_id' => 5],
-            ['type' => 2, 'ip' => '52.221.208.121', 'area_id' => 1, 'parent_id' => 5],
-            ['type' => 2, 'ip' => '18.138.254.170', 'area_id' => 1, 'parent_id' => 5],
+            ['type' => 3, 'ip' => '3.0.52.200', 'area_id' => 1, 'parent_id' => 5],
+            ['type' => 3, 'ip' => '52.221.208.121', 'area_id' => 1, 'parent_id' => 5],
+            ['type' => 3, 'ip' => '18.138.254.170', 'area_id' => 1, 'parent_id' => 5],
 
             // Computational Nodes 1 - 6
-            ['type' => 2, 'ip' => '13.229.135.131', 'area_id' => 1, 'parent_id' => 6],
-            ['type' => 2, 'ip' => '18.136.193.13', 'area_id' => 1, 'parent_id' => 6],
-            ['type' => 2, 'ip' => '54.255.168.132', 'area_id' => 1, 'parent_id' => 6],
+            ['type' => 3, 'ip' => '13.229.135.131', 'area_id' => 1, 'parent_id' => 6],
+            ['type' => 3, 'ip' => '18.136.193.13', 'area_id' => 1, 'parent_id' => 6],
+            ['type' => 3, 'ip' => '54.255.168.132', 'area_id' => 1, 'parent_id' => 6],
 
             // Computational Nodes 2 - 7
-            ['type' => 2, 'ip' => '54.251.133.138', 'area_id' => 2, 'parent_id' => 7],
-            ['type' => 2, 'ip' => '13.229.102.56', 'area_id' => 2, 'parent_id' => 7],
-            ['type' => 2, 'ip' => '18.139.227.63', 'area_id' => 2, 'parent_id' => 7],
+            ['type' => 3, 'ip' => '54.251.133.138', 'area_id' => 2, 'parent_id' => 7],
+            ['type' => 3, 'ip' => '13.229.102.56', 'area_id' => 2, 'parent_id' => 7],
+            ['type' => 3, 'ip' => '18.139.227.63', 'area_id' => 2, 'parent_id' => 7],
 
             // Computational Nodes 2 - 8
-            ['type' => 2, 'ip' => '3.0.57.115', 'area_id' => 2, 'parent_id' => 8],
-            ['type' => 2, 'ip' => '54.251.161.23', 'area_id' => 2, 'parent_id' => 8],
-            ['type' => 2, 'ip' => '3.0.78.88', 'area_id' => 2, 'parent_id' => 8],
+            ['type' => 3, 'ip' => '3.0.57.115', 'area_id' => 2, 'parent_id' => 8],
+            ['type' => 3, 'ip' => '54.251.161.23', 'area_id' => 2, 'parent_id' => 8],
+            ['type' => 3, 'ip' => '3.0.78.88', 'area_id' => 2, 'parent_id' => 8],
             
             // Computational Nodes 2 - 9
-            ['type' => 2, 'ip' => '54.169.137.218', 'area_id' => 2, 'parent_id' => 9],
-            ['type' => 2, 'ip' => '18.141.8.38', 'area_id' => 2, 'parent_id' => 9],
-            ['type' => 2, 'ip' => '13.250.14.253', 'area_id' => 2, 'parent_id' => 9],
+            ['type' => 3, 'ip' => '54.169.137.218', 'area_id' => 2, 'parent_id' => 9],
+            ['type' => 3, 'ip' => '18.141.8.38', 'area_id' => 2, 'parent_id' => 9],
+            ['type' => 3, 'ip' => '13.250.14.253', 'area_id' => 2, 'parent_id' => 9],
             
             // Computational Nodes 3 - 10
-            ['type' => 2, 'ip' => '13.250.111.224', 'area_id' => 3, 'parent_id' => 10],
-            ['type' => 2, 'ip' => '18.140.70.26', 'area_id' => 3, 'parent_id' => 10],
-            ['type' => 2, 'ip' => '52.221.232.159', 'area_id' => 3, 'parent_id' => 10],
+            ['type' => 3, 'ip' => '13.250.111.224', 'area_id' => 3, 'parent_id' => 10],
+            ['type' => 3, 'ip' => '18.140.70.26', 'area_id' => 3, 'parent_id' => 10],
+            ['type' => 3, 'ip' => '52.221.232.159', 'area_id' => 3, 'parent_id' => 10],
 
             // Computational Nodes 3 - 11
-            ['type' => 2, 'ip' => '54.169.184.86', 'area_id' => 3, 'parent_id' => 11],
-            ['type' => 2, 'ip' => '18.141.8.156', 'area_id' => 3, 'parent_id' => 11],
-            ['type' => 2, 'ip' => '18.139.255.16', 'area_id' => 3, 'parent_id' => 11],
+            ['type' => 3, 'ip' => '54.169.184.86', 'area_id' => 3, 'parent_id' => 11],
+            ['type' => 3, 'ip' => '18.141.8.156', 'area_id' => 3, 'parent_id' => 11],
+            ['type' => 3, 'ip' => '18.139.255.16', 'area_id' => 3, 'parent_id' => 11],
             
             // Computational Nodes 3 - 12
-            ['type' => 2, 'ip' => '18.141.24.199', 'area_id' => 3, 'parent_id' => 12],
-            ['type' => 2, 'ip' => '18.139.224.37', 'area_id' => 3, 'parent_id' => 12],
-            ['type' => 2, 'ip' => '13.229.247.212', 'area_id' => 3, 'parent_id' => 12],
+            ['type' => 3, 'ip' => '18.141.24.199', 'area_id' => 3, 'parent_id' => 12],
+            ['type' => 3, 'ip' => '18.139.224.37', 'area_id' => 3, 'parent_id' => 12],
+            ['type' => 3, 'ip' => '13.229.247.212', 'area_id' => 3, 'parent_id' => 12],
         ];
         
         foreach ($nodes as $node) {
