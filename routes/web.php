@@ -71,6 +71,6 @@ Route::get('/test3', function () {
 });
 Route::get('/test4', function () {
     exec('pwd ; cd .. ; pwd ; sudo -u www-data git pull https://ingeniousartist:01552344763@gitlab.com/mobashir-monim/land-reg ; pwd', $resp);
-    dd($resp);
+    dd($resp, "LALALLALALA");
 });
 Route::post('/mine/transaction', 'DAppTransactionsController@processTransaction')->name('mine.transaction');
