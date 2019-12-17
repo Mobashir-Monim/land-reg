@@ -67,6 +67,7 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
+    dd(exec("cd .. ; ./git-pull.sh"));
     return view('test3');
 });
 // Route::get('/test2', function () {
