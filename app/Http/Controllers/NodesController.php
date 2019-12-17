@@ -15,7 +15,7 @@ class NodesController extends Controller
         
         foreach (Node::all() as $node) {
             $response = $this->postData("http://$node->ip/api/comp-dump", ['ip' => ServerConfig::getVal('ip')]);
-            $responses[$node->ip] = json_decode($response->getBody()->getContents())->success;
+            $responses[$node->ip] = json_decode($response->getBody()->getContents());
         }
 
         return response()->json([
@@ -34,7 +34,7 @@ class NodesController extends Controller
         
         foreach (Node::all() as $node) {
             $response = $this->postData("http://$node->ip/api/mig-reseed", ['ip' => ServerConfig::getVal('ip')]);
-            $responses[$node->ip] = json_decode($response->getBody()->getContents())->success;
+            $responses[$node->ip] = json_decode($response->getBody()->getContents());
         }
 
         return response()->json([
