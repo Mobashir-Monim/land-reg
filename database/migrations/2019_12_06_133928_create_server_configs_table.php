@@ -15,7 +15,7 @@ class CreateServerConfigsTable extends Migration
     {
         Schema::create('server_configs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('description');
             $table->string('value');
             $table->timestamps();

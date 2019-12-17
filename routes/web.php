@@ -64,6 +64,9 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
+    preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
+    $externalIp = $m[1];
+    dd($externalIp);
     return view('test3');
 });
 Route::post('/mine/transaction', 'DAppTransactionsController@processTransaction')->name('mine.transaction');

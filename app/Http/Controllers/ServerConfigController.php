@@ -8,6 +8,19 @@ use App\Node;
 
 class ServerConfigController extends Controller
 {
+    public function configAll(Request $request)
+    {
+
+    }
+
+    public function selfConfig(Request $request)
+    {
+        preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
+        $externalIp = $m[1];
+
+        
+    }
+
     public function index()
     {
         return view('nodes.config.index');
