@@ -21,7 +21,6 @@ class IPValidator
                 'message' => "IP not recognized",
             ]);
         }
-        dd('HERE lalala');
         
         return $next($request);
     }

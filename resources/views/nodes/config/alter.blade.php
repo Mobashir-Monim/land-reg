@@ -31,7 +31,6 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8"><button type="submit" class="btn btn-success w-100">Save</button></div>
                             <div class="col-md-2"></div>
-
                         </div>
                     </form>
                 </div>

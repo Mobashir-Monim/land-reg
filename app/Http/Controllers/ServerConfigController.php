@@ -8,7 +8,7 @@ use App\Node;
 
 class ServerConfigController extends Controller
 {
-    public function configAll(Request $request)
+    public function configAll()
     {
         $responses = array();
 

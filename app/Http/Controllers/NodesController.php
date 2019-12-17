@@ -31,11 +31,20 @@ class NodesController extends Controller
     {
         set_time_limit(600);
         $responses = array();
+        $last = null;
         
         foreach (Node::all() as $node) {
-            $response = $this->postData("http://$node->ip/api/mig-reseed", ['ip' => ServerConfig::getVal('ip')]);
-            $responses[$node->ip] = json_decode($response->getBody()->getContents());
+            if ($node->ip == ServerConfig::getVal('ip')) {
+                $last = $node;
+            } else {
+                $response = $this->postData("http://$node->ip/api/mig-reseed", ['ip' => ServerConfig::getVal('ip')]);
+                $responses[$node->ip] = json_decode($response->getBody()->getContents());
+            }
         }
+
+        $response = $this->postData("http://$last->ip/api/mig-reseed", ['ip' => ServerConfig::getVal('ip')]);
+        $responses[$node->ip] = json_decode($response->getBody()->getContents());
+        (new ServerConfigController)->configAll();
 
         return response()->json([
             'success' => true,
