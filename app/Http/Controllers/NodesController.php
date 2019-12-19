@@ -54,6 +54,12 @@ class NodesController extends Controller
         ]);
     }
 
+    public function migReseed(Request $request)
+    {
+        exec("cd .. ; php artisan migrate:refresh --seed", $resp);
+        (new ServerConfigController)->selfConfig();
+    }
+
     public function dbClean(Request $request)
     {
         exec("cd .. ; php artisan migrate:refresh --seed", $resp);

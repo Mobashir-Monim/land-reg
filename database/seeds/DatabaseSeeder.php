@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             BlocksTableSeeder::class,
             NodesTableSeeder::class,
+            ServerConfigSeeder::class,
         ]);
     }
 }
