@@ -24,7 +24,7 @@ class ServerConfigSeeder extends Seeder
         ];
 
         foreach ($items as $item) {
-            ServerConfig::create($item);
+            App\ServerConfig::create($item);
         }
     }
 }
