@@ -56,8 +56,7 @@ class DAppTransactionsController extends Controller
 
         $data = Block::generateDataBlock($transaction);
         
-        // Fire and forget request
-        dd("All election complete", $elected, $data);
+        return view('dApp.demo.elected', compact('data', 'elected'));
     }
 
     public function startElection($candidates, $key, $singular)
@@ -86,5 +85,6 @@ class DAppTransactionsController extends Controller
     public function mine(Request $request)
     {
         dd($request->all());
+        // fire and forget
     }
 }
