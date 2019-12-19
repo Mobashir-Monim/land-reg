@@ -16,7 +16,7 @@ class IPValidator
     public function handle($request, Closure $next)
     {
         try {
-            if (!is_null(\App\Node::where('ip', $request->data->ip)->first())) {
+            if (!is_null(\App\Node::where('ip', $request['data']['ip'])->first())) {
                 return $next($request);
             }
         } catch (\Exception $e) {
@@ -24,6 +24,10 @@ class IPValidator
                 'error' => $e,
                 'request' => $request,
                 'request-all' => $request->all(),
+                'request["data"]' => $request['data'],
+                'request["data"]["ip"]' => $request['data']['ip'],
+                'request->data' => $request->data,
+                // 'request->data->ip' => $request->data->ip,
             ]);
         }
         
