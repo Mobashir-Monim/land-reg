@@ -20,7 +20,11 @@ class IPValidator
                 return $next($request);
             }
         } catch (\Exception $e) {
-            // do notthing
+            return response()->json([
+                'error' => $e,
+                'request' => $request,
+                'request-all' => $request->all(),
+            ]);
         }
         
         return response()->json([
