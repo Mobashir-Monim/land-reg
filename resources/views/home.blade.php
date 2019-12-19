@@ -13,13 +13,7 @@
                             <a href="{{ route('server.config.index') }}" class="btn btn-danger w-100">Config Servers</a>
                         </div>
                         <div class="col-md-6 my-3">
-                            <a href="{{ route('mig.reseed') }}" class="btn btn-primary w-100">Refresh DB</a>
-                        </div>
-                        <div class="col-md-6 my-3">
-                            <a href="{{ route('comp.dump') }}" class="btn btn-success w-100">Refresh System</a>
-                        </div>
-                        <div class="col-md-6 my-3">
-                            <a href="{{ route('server.config.all') }}" class="btn btn-warning w-100">Config All</a>
+                                <a href="{{ route('transactions.create') }}" class="btn btn-warning w-100">Add Transaction</a>
                         </div>
                     </div>
                 </div>

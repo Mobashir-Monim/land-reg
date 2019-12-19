@@ -9,6 +9,11 @@ use App\Block;
 
 class DAppTransactionsController extends Controller
 {
+    public function addTransaction()
+    {
+        return view('dApp.transactions.create');
+    }
+
     public function getAreasArray()
     {
         $areas = array_keys(Node::all()->pluck('id', 'area_id')->toArray());
@@ -35,16 +40,8 @@ class DAppTransactionsController extends Controller
 
     public function processTransaction(Request $request)
     {
-        dd($request->file('doc')->getClientOriginalName(), $request->file('doc')->getClientOriginalExtension(), file_get_contents($request->file('doc')));
-        $blockData = null;
-        $transaction = null;
-        
-        if (is_null($request->txid)) {
-            $transaction = (new TransactionsController)->store($request);
-        } else {
-            $transaction = Transaction::find($request->txid);
-        }
-
+        // dd($request->file('doc')->getClientOriginalName(), $request->file('doc')->getClientOriginalExtension());
+        $transaction = (is_null($request->txid) ? (new TransactionsController)->store($request) : Transaction::find($request->txid));
         $candidates = ['areas' => $this->getAreasArray(), 'clusters' => null, 'nodes' => null];
         $elected = ['area' => null, 'cluster' => null, 'node' => null];
 
@@ -58,26 +55,10 @@ class DAppTransactionsController extends Controller
                 $candidates['nodes'] = $this->getNodesArray($elected[$singular]);
         }
 
-        $data = [
-            'hash' => '',
-            'upper_limit' => Block::generateDifficulty(),
-            'start_val' => 0,
-            'end_val' => null,
-            'block_data' => [
-                'txid' => $transaction->id,
-                'from' => $transaction->from,
-                'to' => $transaction->to,
-                'specifics' => $transaction->specifics,
-                'file' => $transaction->document,
-                'ext' => $transaction->ext,
-                'nonce' => 0,
-                'prev_hash' => null,
-                'timestamp' => null,
-            ],
-        ];
+        $data = Block::generateDataBlock($transaction);
         
         // Fire and forget request
-        dd("All election complete", $elected);
+        dd("All election complete", $elected, $data);
     }
 
     public function startElection($candidates, $key, $singular)

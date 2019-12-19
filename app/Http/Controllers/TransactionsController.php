@@ -13,12 +13,12 @@ class TransactionsController extends Controller
 
         if ($request->hasFile('doc')) {
             $doc[0] = base64_encode(file_get_contents($request->file('doc')));
-            $doc[1] = $request->file('doc')->getClientOriginalName();
+            $doc[1] = $request->file('doc')->getClientOriginalExtension();
         }
 
         $transaction = Transaction::create([
-            'from' => $request->from,
-            'to' => $request->to,
+            'from' => $request->transfer_from,
+            'to' => $request->transfer_to,
             'specifics' => $request->specifics,
             'document' => $doc[0],
             'ext' => $doc[1],

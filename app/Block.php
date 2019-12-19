@@ -46,14 +46,73 @@ class Block extends BaseModel
         return $difficulty;
     }
 
+    public static function generateUpperLim()
+    {
+        $lim = '';
+
+        for ($i = 0; $i <= rand(1, 8); $i++) {
+            $lim .= self::$hexVals[rand(0, 15)];
+        }
+
+        while (strlen($lim) != 64) {
+            $lim .= '0';
+        }
+
+        return $lim;
+    }
+
+    public static function generateLowerLim()
+    {
+        $lim = "";
+
+        for ($i = 0; $i <= rand(32, 48); $i++) {
+            $lim .= self::$hexVals[rand(0, 15)];
+        }
+
+        while (strlen($lim) != 64) {
+            $lim = '0'.$lim;
+        }
+
+        return $lim;
+    }
+
     public static function chainable($data)
     {
-        if (!(substr($string, 0, strlen($startString)) == $startString))
+        $upper = hexdec($data['upper_limit']);
+        $lower = hexdec($data['lower_limit']);
+        $hash = hexdec($data['hash']);
+        if ($hash < $lower || $hash > $upper)
             return false;
 
         if (!is_null(Block::where('hash', $data['hash']->first())))
-            return false;
+        return false;
         
         return true;
     }
+
+    public static function generateDataBlock($transaction)
+    {
+        return [
+            'hash' => '',
+            'upper_limit' => Block::generateUpperLim(),
+            'lower_limit' => Block::generateLowerLim(),
+            'start_val' => 0,
+            'end_val' => null,
+            'block_data' => [
+                'txid' => $transaction->id,
+                'from' => $transaction->from,
+                'to' => $transaction->to,
+                'specifics' => $transaction->specifics,
+                'file' => $transaction->document,
+                'ext' => $transaction->ext,
+                'nonce' => 0,
+                'prev_hash' => null,
+                'timestamp' => null,
+            ],
+        ];
+    }
+
+    // Check if string starts with pattern
+    // if (!(substr($string, 0, strlen($startString)) == $startString))
+    //     return false;
 }

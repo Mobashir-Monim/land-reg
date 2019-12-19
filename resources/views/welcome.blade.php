@@ -127,7 +127,7 @@
                         <a href="{{ route('home') }}" class="btn btn-secondary w-100">Dashboard</a>
                     </div>
                     <div class="col-md-6 my-3">
-                        <a href="{{ route('js-blocks') }}" class="btn btn-warning w-100">Add Block</a>
+                        <a href="{{ route('transactions.create') }}" class="btn btn-warning w-100">Add Transaction</a>
                     </div>
                 @endauth
             </div>

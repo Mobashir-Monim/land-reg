@@ -26,9 +26,9 @@ Route::middleware(['auth', 'super-admin-only'])->group(function () {
     Route::get('/server-config/update/{name}', 'ServerConfigController@edit')->name('server.config.alter');
     Route::post('/server-config/update/{name}', 'ServerConfigController@update')->name('server.config.alter');
 
-    Route::get('/comp-dump', 'NodesController@compDump')->name('comp.dump');
 
-    Route::get('/mig-reseed', 'NodesController@dbCleanIndex')->name('mig.reseed');
+    Route::get('/transaction/create', 'DAppTransactionsController@addTransaction')->name('transactions.create');
+    Route::post('/transaction/create', 'DAppTransactionsController@processTransaction')->name('transactions.create');
 });
 
 
@@ -65,8 +65,10 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
-    // preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
-    // $externalIp = $m[1];
+    dd(App\Block::generateUpperLim(), App\Block::generateLowerLim());
+    $val = hexdec(bin2hex(openssl_random_pseudo_bytes(32)));
+    $base = hexdec(bin2hex(openssl_random_pseudo_bytes(32)));
+    dd($val == $base, $val >= $base, $val <= $base);
     dd((new App\ServerConfig)->getVal('ip'), 'here');
     return view('test3');
 });
