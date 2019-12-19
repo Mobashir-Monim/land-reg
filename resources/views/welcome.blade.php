@@ -115,14 +115,21 @@
         <div class="col-md-12 my-auto">
             <h3 class="text-center title">Land Registration using Blockchain</h3>
             <div class="row">
-                <div class="col-md"></div>
-                <div class="col-md mt-3">
+                <div class="col-md-6 my-3">
                     <a href="{{ route('blocks') }}" class="btn btn-primary w-100">Test PHP Chain</a>
                 </div>
-                <div class="col-md mt-3">
+                <div class="col-md-6 my-3">
                     <a href="{{ route('js-blocks') }}" class="btn btn-success w-100">Test JS Chain</a>
                 </div>
-                <div class="col-md"></div>
+
+                @auth
+                    <div class="col-md-6 my-3">
+                        <a href="{{ route('home') }}" class="btn btn-secondary w-100">Dashboard</a>
+                    </div>
+                    <div class="col-md-6 my-3">
+                        <a href="{{ route('js-blocks') }}" class="btn btn-warning w-100">Add Block</a>
+                    </div>
+                @endauth
             </div>
         </div>
     </div>

@@ -35,7 +35,15 @@ class DAppTransactionsController extends Controller
 
     public function processTransaction(Request $request)
     {
-        // $transaction = Transaction::create(['from' => $request->from, 'to' => $request->to, 'specifics' => $request->specifics]);
+        dd($request->file('doc')->getClientOriginalName(), $request->file('doc')->getClientOriginalExtension(), file_get_contents($request->file('doc')));
+        $blockData = null;
+        $transaction = null;
+        
+        if (is_null($request->txid)) {
+            $transaction = (new TransactionsController)->store($request);
+        } else {
+            $transaction = Transaction::find($request->txid);
+        }
 
         $candidates = ['areas' => $this->getAreasArray(), 'clusters' => null, 'nodes' => null];
         $elected = ['area' => null, 'cluster' => null, 'node' => null];
@@ -53,16 +61,18 @@ class DAppTransactionsController extends Controller
         $data = [
             'hash' => '',
             'upper_limit' => Block::generateDifficulty(),
-            'mine_limit' => null,
+            'start_val' => 0,
+            'end_val' => null,
             'block_data' => [
                 'txid' => $transaction->id,
                 'from' => $transaction->from,
                 'to' => $transaction->to,
-                'data' => [
-                    'specifics' => $transaction->specifics,
-                    'file' => base64_encode(file_get_contents($transaction->document)),
-                ],
+                'specifics' => $transaction->specifics,
+                'file' => $transaction->document,
+                'ext' => $transaction->ext,
                 'nonce' => 0,
+                'prev_hash' => null,
+                'timestamp' => null,
             ],
         ];
         

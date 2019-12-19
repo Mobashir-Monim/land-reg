@@ -18,7 +18,9 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('from');
             $table->unsignedBigInteger('to');
             $table->text('specifics');
-            $table->string('document')->nullable();
+            $table->mediumtext('document', 2097152)->nullable();
+            $table->string('ext', 10)->nullable();
+            $table->boolean('mined')->default(false);
             $table->timestamps();
         });
     }
