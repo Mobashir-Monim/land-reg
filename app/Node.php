@@ -16,9 +16,9 @@ class Node extends BaseModel
         return $this->belongsTo('App\Node', 'parent_id');
     }
 
-    public static function getNode($ip)
+    public function getNode($ip)
     {
-        return self::where('ip', $ip)->first();
+        return $this->where('ip', $ip)->first();
     }
 
     public function childNumber()

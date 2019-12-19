@@ -13,7 +13,8 @@ class ServerConfigSeeder extends Seeder
     {
         preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
         $externalIp = $m[1];
-        $node = App\Node::getNode($externalIp);
+        $node = (new App\Node)->getNode($externalIp);
+        dd((new App\Node)->getNode($externalIp));
         $type = $node->type == 1 ? 'Council' : ($node->type == 2 ? 'Information' : 'Computational');
         $name = $node->type == 1 ? 'Council '.$node->area_id : ($node->type == 2 ? 'Information '.$node->area_id.' - '.$node->childNumber() : 'Computational '.$node->area_id.' - '.$node->parent->childNumber().' - '.$node->childNumber());
         $items = [
