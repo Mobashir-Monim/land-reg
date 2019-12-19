@@ -115,7 +115,7 @@ class ServerConfigController extends Controller
             'success' => true,
             'message' => 'Retrieved '.$request->data['name'],
             'data' => [
-                'value' => ServerConfig::getVal($request->data['name']),
+                'value' => (new ServerConfig)->getVal($request->data['name']),
             ],
         ]);
     }
@@ -127,9 +127,9 @@ class ServerConfigController extends Controller
 
         foreach (Node::all() as $node) {
             if ($node->ip == $this->selfIP()) {
-                $responses[$node->ip] = ServerConfig::getVal($name);
+                $responses[$node->ip] = (new ServerConfig)->getConf($name)->value;
                 $config['name'] = $name;
-                
+                $config['description'] = (new ServerConfig)->getConf($name)->description;
                 try {
                     $config['description'] = ServerConfig::where('name', $name)->first()->description;
                 } catch (\Exception $e) {
@@ -140,6 +140,8 @@ class ServerConfigController extends Controller
                 $responses[$node->ip] = json_decode($response->getBody()->getContents());
             }
         }
+
+        dd($responses);
 
         return view('nodes.config.alter', compact('responses', 'config'));
     }
