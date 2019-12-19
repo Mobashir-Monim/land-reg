@@ -26,9 +26,10 @@ Route::middleware(['auth', 'super-admin-only'])->group(function () {
     Route::get('/server-config/update/{name}', 'ServerConfigController@edit')->name('server.config.alter');
     Route::post('/server-config/update/{name}', 'ServerConfigController@update')->name('server.config.alter');
 
-
+    // DApp Transaction Routes
     Route::get('/transaction/create', 'DAppTransactionsController@addTransaction')->name('transactions.create');
     Route::post('/transaction/create', 'DAppTransactionsController@processTransaction')->name('transactions.create');
+    Route::post('/transaction/mine', 'DAppTransactionsController@mine')->name('transactions.mine');
 });
 
 

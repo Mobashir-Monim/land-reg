@@ -16,7 +16,7 @@ class DAppTransactionsController extends Controller
 
     public function getAreasArray()
     {
-        $areas = array_keys(Node::all()->pluck('id', 'area_id')->toArray());
+        $areas = array_keys(Node::where('area_id', '!=', 0)->pluck('id', 'area_id')->toArray());
         $this->shuffle_assoc($areas);
         array_splice($areas, rand(0, sizeof($areas) - 1), 1);
         return array_fill_keys($areas, 0);
@@ -40,7 +40,6 @@ class DAppTransactionsController extends Controller
 
     public function processTransaction(Request $request)
     {
-        // dd($request->file('doc')->getClientOriginalName(), $request->file('doc')->getClientOriginalExtension());
         $transaction = (is_null($request->txid) ? (new TransactionsController)->store($request) : Transaction::find($request->txid));
         $candidates = ['areas' => $this->getAreasArray(), 'clusters' => null, 'nodes' => null];
         $elected = ['area' => null, 'cluster' => null, 'node' => null];
@@ -68,7 +67,6 @@ class DAppTransactionsController extends Controller
 
         foreach (Node::where('type', 1)->get() as $council) {
             $response = $this->postData("http://$council->ip/api/elect/$singular", ['ip' => $this->selfIP(), $key => $candidates[$key]]);
-            dd(json_decode($response->getBody()->getContents()));
             ++$candidates[$key][json_decode($response->getBody()->getContents())->data->$singular];
         }
 
@@ -83,5 +81,10 @@ class DAppTransactionsController extends Controller
             'to' => $transaction->to,
             'file' => base64_encode(file_get_contents($transaction->document)),
         ]);
+    }
+
+    public function mine(Request $request)
+    {
+        dd($request->all());
     }
 }

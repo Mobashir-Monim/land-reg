@@ -20,15 +20,7 @@ class IPValidator
                 return $next($request);
             }
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e,
-                'request' => $request,
-                'request-all' => $request->all(),
-                'request["data"]' => $request['data'],
-                'request["data"]["ip"]' => $request['data']['ip'],
-                'request->data' => $request->data,
-                // 'request->data->ip' => $request->data->ip,
-            ]);
+            // do nothing
         }
         
         return response()->json([
