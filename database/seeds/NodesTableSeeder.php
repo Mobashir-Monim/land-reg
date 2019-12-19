@@ -76,6 +76,8 @@ class NodesTableSeeder extends Seeder
             ['type' => 3, 'ip' => '18.141.24.199', 'area_id' => 3, 'parent_id' => 12],
             ['type' => 3, 'ip' => '18.139.224.37', 'area_id' => 3, 'parent_id' => 12],
             ['type' => 3, 'ip' => '13.229.247.212', 'area_id' => 3, 'parent_id' => 12],
+
+            ['type' => 0, 'ip' => '127.0.0.1', 'area_id' => 0, 'parent_id' => 0],
         ];
         
         foreach ($nodes as $node) {

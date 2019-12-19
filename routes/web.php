@@ -65,11 +65,12 @@ Route::get('test', function () {
 
 Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
+    dd(request()->ip(), (new App\Http\Controllers\Controller)->selfIP());
     dd(App\Block::generateUpperLim(), App\Block::generateLowerLim());
     $val = hexdec(bin2hex(openssl_random_pseudo_bytes(32)));
     $base = hexdec(bin2hex(openssl_random_pseudo_bytes(32)));
     dd($val == $base, $val >= $base, $val <= $base);
     dd((new App\ServerConfig)->getVal('ip'), 'here');
     return view('test3');
-})->middleware('');
+});
 Route::post('/mine/transaction', 'DAppTransactionsController@processTransaction')->name('mine.transaction');

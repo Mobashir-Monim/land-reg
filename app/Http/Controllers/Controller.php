@@ -24,6 +24,9 @@ class Controller extends BaseController
 
     public function selfIP()
     {
+        if (request()->ip() == "127.0.0.1")
+            return request()->ip();
+
         preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
         return $m[1];
     }
