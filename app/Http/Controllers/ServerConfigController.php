@@ -144,9 +144,46 @@ class ServerConfigController extends Controller
         return view('nodes.config.alter', compact('responses', 'config'));
     }
 
-    public function update(Request $request, ServerConfig $serverConfig)
+    public function update(Request $request, $name)
     {
-        //
+        $responses = array();
+        
+        foreach (Node::all() as $node) {
+            if ($node->ip == $this->selfIP()) {
+                $conf = ServerConfig::where('name', $name)->first();
+                $conf->name = $request->name;
+                $conf->description = $request->description;
+                $conf->value = $request->value[$node->ip];
+                $conf->save();
+                $responses[$node->ip] = true;
+            } else {
+                $data = [
+                    'ip' => $this->selfIP(),
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'value' => $request->value[$node->ip]
+                ];
+
+                $reponse = $response = $this->postData("http://$node->ip/api/server-config/update/$name", $data);
+                $responses[$node->ip] = json_decode($response->getBody()->getContents())->success;
+            }
+        }
+
+        return $responses;
+    }
+
+    public function updateAPI(Request $request, $name)
+    {
+        $conf = ServerConfig::where('name', $name)->first();
+        $conf->name = $request->name;
+        $conf->description = $request->description;
+        $conf->value = $request->value;
+        $conf->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Updated config '.$request->name
+        ]);
     }
 
     public function destroy(ServerConfig $serverConfig)

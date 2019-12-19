@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Alter Config</div>
                 <div class="card-body">
-                    <form action="{{ route('server.config.create') }}" method="POST">
+                    <form action="{{ route('server.config.alter', ['name' => $config['name']]) }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 my-3">

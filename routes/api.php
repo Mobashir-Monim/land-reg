@@ -36,4 +36,5 @@ Route::group(['middleware' => ['verify-ip']], function () {
     Route::post('/server-config/store', 'ServerConfigController@storeAPI')->name('server.config.store');
     Route::post('/server-config/fetch', 'ServerConfigController@show')->name('server.config.fetch');
     Route::post('/server-config/self', 'ServerConfigController@callSelfConfig')->name('server.config.call');
+    Route::post('/server-config/update/{name}', 'ServerConfigController@updateAPI')->name('server.config.update');
 });
