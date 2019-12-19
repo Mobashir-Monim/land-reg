@@ -67,7 +67,7 @@ class DAppTransactionsController extends Controller
             return array_keys($candidates[$key])[0];
 
         foreach (Node::where('type', 1)->get() as $council) {
-            $response = $this->postData("http://$council->ip/api/elect/$singular", [$key => $candidates[$key]]);
+            $response = $this->postData("http://$council->ip/api/elect/$singular", ['ip' => $this->selfIP(), $key => $candidates[$key]]);
             ++$candidates[$key][json_decode($response->getBody()->getContents())->data->$singular];
         }
 

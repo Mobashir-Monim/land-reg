@@ -15,13 +15,17 @@ class IPValidator
      */
     public function handle($request, Closure $next)
     {
-        if (is_null(\App\Node::where('ip', $request->data->ip)->first())) {
-            return response()->json([
-                'success' => false,
-                'message' => "IP not recognized",
-            ]);
+        try {
+            if (!is_null(\App\Node::where('ip', $request->data->ip)->first())) {
+                return $next($request);
+            }
+        } catch (\Exception $e) {
+            // do notthing
         }
         
-        return $next($request);
+        return response()->json([
+            'success' => false,
+            'message' => "IP not recognized",
+        ]);
     }
 }

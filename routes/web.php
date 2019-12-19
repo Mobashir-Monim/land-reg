@@ -71,5 +71,5 @@ Route::get('/test3', function () {
     dd($val == $base, $val >= $base, $val <= $base);
     dd((new App\ServerConfig)->getVal('ip'), 'here');
     return view('test3');
-});
+})->middleware('');
 Route::post('/mine/transaction', 'DAppTransactionsController@processTransaction')->name('mine.transaction');
