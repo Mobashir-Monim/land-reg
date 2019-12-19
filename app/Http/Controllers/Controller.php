@@ -33,13 +33,17 @@ class Controller extends BaseController
 
     public function postData($url, $data)
     {
-        $client = new Client();
+        $client = new Client;
 
-        return $client->request('POST', $url, [
-            'form_params' => [
-                'data' => $data,
-            ]
-        ]);
+        return $client->request('POST', $url, ['form_params' => ['data' => $data]]);
+    }
+
+    public function asyncPost($url, $data)
+    {
+        $client = new Client();
+        $client->postAsync($url, ['form_params' => ['data' => $data]]);
+
+        return;
     }
 
     public function hasMajority($array)

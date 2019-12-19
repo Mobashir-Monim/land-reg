@@ -43,3 +43,8 @@ Route::group(['middleware' => ['verify-ip']], function () {
         ]);
     })->name('test');
 });
+
+Route::post('/async/post', function (\Request $request) {
+    $data = json_encode(request()->data);
+    App\ServerConfig::create(['name' => count(App\ServerConfig::all()), 'description' => $data, 'value' => 'lalalala']);
+})->name('asyncPost');

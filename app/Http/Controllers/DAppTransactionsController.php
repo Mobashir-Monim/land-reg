@@ -81,10 +81,4 @@ class DAppTransactionsController extends Controller
             'file' => base64_encode(file_get_contents($transaction->document)),
         ]);
     }
-
-    public function mine(Request $request)
-    {
-        dd($request->all());
-        // fire and forget
-    }
 }

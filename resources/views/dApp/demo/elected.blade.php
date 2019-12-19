@@ -18,8 +18,8 @@
                             <div class="col-md-4 my-3 h3 text-center">Elected Node: {{ $elected['node'] }}</div>
                         </div>
                         <div class="row my-3">
-                            <div class="col-md-6 my-3 h3 text-center">Upper Limit: {{ $data['upper_limit'] }}</div>
-                            <div class="col-md-6 my-3 h3 text-center">Lower Limit: {{ $data['lower_limit'] }}</div>
+                            <div class="col-md-6 my-3 h5">Upper Limit: {{ $data['upper_limit'] }}</div>
+                            <div class="col-md-6 my-3 h5 text-center">Lower Limit: {{ $data['lower_limit'] }}</div>
                         </div>
                         <div class="row my-3">
                             <div class="col-md-6 my-3">Transfer from: {{ $data['block_data']['from'] }}</div>
@@ -52,16 +52,16 @@
         var dForm = null;
 
         window.onload = () => {
-            dForm = document.getElementById('decision-form')
+            dForm = document.getElementById('decision-form');
         }
 
         const reelect = () => {
-            dForm.action = {{ route('transactions.create') }}
+            dForm.action = "{{ route('transactions.create') }}";
             dForm.submit();
         }
 
         const continueMine = () => {
-            dForm.action = {{ route('transactions.mine') }}
+            dForm.action = "{{ route('transactions.mine') }}";
             dForm.submit();
         }
     </script>
