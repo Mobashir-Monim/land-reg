@@ -137,11 +137,9 @@ class ServerConfigController extends Controller
                 }
             } else {
                 $reponse = $response = $this->postData("http://$node->ip/api/server-config/fetch", ['ip' => $this->selfIP(), 'name' => $name]);
-                $responses[$node->ip] = json_decode($response->getBody()->getContents());
+                $responses[$node->ip] = json_decode($response->getBody()->getContents())->data['value'];
             }
         }
-
-        dd($responses);
 
         return view('nodes.config.alter', compact('responses', 'config'));
     }
