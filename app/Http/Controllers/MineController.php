@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Node;
+use App\MineData;
 use Carbon\Carbon;
 
 class MineController extends Controller
@@ -13,16 +14,19 @@ class MineController extends Controller
         set_time_limit(43260);
         $chains_details = $this->findConsentingChain();
         $this->truncateChain($chains_details);
-        dd($chains_details);
-        $this->mine($requeste->data);
+        $start = Carbon::now()->toDateTimeString();
+        $data = json_decode($request->data);
+        MineData::create(['data' => $request->data, 'txid' => $data->block_data->txid]);
+        
+        return;
     }
 
-    // public function mine
-
+    // public function mine($data, $start, $limit)
     public function mine($data)
     {
+        MineData::create([]);
+        $data = json_decode($data);
         $timestamp = Carbon::now()->timestamp * 1000;
-        $start = Carbon::now()->toDateTimeString();
         $data['block_data']['timestamp'] = $timestamp;
         $data['block_data']['prev_hash'] = Block::orderBy('created_at', 'desc')->first()->hash;
 
@@ -33,10 +37,16 @@ class MineController extends Controller
                 break;
     
             $data['block_data']['nonce']++;
+
+            if ($this->timelimitCheck($start, $limit))
+                $this->requestSubzoneLock($data);
+                break;
         }
 
         $end = Carbon::now()->toDateTimeString();
     }
+
+
     
     public function findConsentingChain()
     {
@@ -59,11 +69,11 @@ class MineController extends Controller
 
     public function geneticConsensus()
     {
-        $nodes = Node::all()->shuffle()->whereNotIn('ip', $_SERVER['REMOTE_ADDR'])->take(rand((1 + count(Node::all())), (3 * count(Node::all()) / 4)))->toArray();
+        $nodes = Node::all()->shuffle()->whereNotIn('ip', $this->selfIP())->take(rand((1 + count(Node::all())), (3 * count(Node::all()) / 4)))->toArray();
         $chains_details = ['chains' => array(), 'ips' => array(), 'self' => (new \App\Http\Controllers\ChainController)->leadingChain()];
         
         foreach ($nodes as $node) {
-            $response = $this->postData("http://".$node['ip']."/api/chain/header", ['ip' => $_SERVER['REMOTE_ADDR']]);
+            $response = $this->postData("http://".$node['ip']."/api/chain/header", ['ip' => $this->selfIP()]);
             $chains_details = $this->processChain($chains_details, $node['ip'], json_decode($response->getBody()->getContents())->data->chain);
         }
 

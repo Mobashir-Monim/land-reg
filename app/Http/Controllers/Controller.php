@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use \GuzzleHttp\Client;
+use Carbon\Carbon;
 
 class Controller extends BaseController
 {
@@ -42,8 +43,8 @@ class Controller extends BaseController
     {
         $client = new Client();
         $client->postAsync($url, ['form_params' => ['data' => $data]]);
-
-        return;
+        $response = $promise->wait();
+        return $response;
     }
 
     public function hasMajority($array)
@@ -79,5 +80,13 @@ class Controller extends BaseController
         $array = $new;
 
         return $array;
+    }
+
+    public function timelimitCheck($start, $limit)
+    {
+        if (Carbon::now()->diffInSeconds($start) <= ($limit - 30))
+            return true;
+
+        return false;
     }
 }

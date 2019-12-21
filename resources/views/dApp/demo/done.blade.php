@@ -8,8 +8,9 @@
                 <div class="card-header">Notification</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">Sent Data to be Mined</div>
-                        
+                        <div class="col-md-12 my-3">Sent Data to be Mined</div>
+                        <div class="col-md-12 my-3">Mine request sent to: {{ $elected->node }}</div>
+                        <div class="col-md-12 my-3">To see if block is mined visit: <a href="http://{{ $elected->node }}/blocks" target="_blank">http://{{ $elected->node }}/blocks</a></div>
                     </div>
                 </div>
             </div>
