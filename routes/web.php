@@ -66,7 +66,7 @@ Route::get('test', function () {
     // return count(App\ComputeTester::all());
 });
 
-Route::get('/test2', 'MineController@geneticConsensus');
+Route::get('/test2', 'MineController@processMine');
 Route::get('/test3', function () {
     // $response = (new App\Http\Controllers\Controller)->postData("http://127.0.0.1:8001/api/test", ['ip' => (new App\Http\Controllers\Controller)->selfIP()]);
     // dd(json_decode($response->getBody()->getContents()));
