@@ -23,6 +23,7 @@
                                     Transaction To: {{ $data['block_data']['to'] }} <br>
                                     Specifics: {{ $data['block_data']['specifics'] }} <br>
                                     Previous Hash: {{ $data['block_data']['prev_hash'] }} <br>
+                                    Nonce: {{ $data['block_data']['nonce'] }} <br>
                                     Timestamp: {{ $data['block_data']['timestamp'] }}
                                 </div>
                             </div>
