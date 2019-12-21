@@ -28,7 +28,6 @@ class MineController extends Controller
     {
         set_time_limit(43260);
         $data = json_decode(MineData::where('txid', $txid)->first()->data, true);
-        dd($data);
         $start = Carbon::now()->toDateTimeString();
         $data = $this->mine($data, $start, 43260);
         dd($data);
