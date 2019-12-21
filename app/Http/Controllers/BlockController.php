@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Block;
+use App\MineData;
 
 class BlockController extends Controller
 {
