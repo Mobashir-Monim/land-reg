@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">Sent Data to be Mined</div>
+                        
                     </div>
                 </div>
             </div>

@@ -85,7 +85,7 @@ class Block extends BaseModel
             return false;
 
         if (!is_null(Block::where('hash', $data['hash']->first())))
-        return false;
+            return false;
         
         return true;
     }

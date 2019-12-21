@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="card">
@@ -27,17 +27,14 @@
                         @csrf
                         <textarea name="block_data" class="form-control mb-3" placeholder="Block Data" id="block_data"></textarea>
                         <input type="text" name="upper_limit" id="upper_limit" class="form-control mb-3" placeholder="Upper Limit">
-                        {{-- <button class="btn btn-success w-100" onclick="mine()">Add Block</button> --}}
                         <button class="btn btn-success w-100" type="submit">Add Block</button>
                     </form>
                 </div>
             </div>
         </div>
         <div class="col-md-3"></div>
-    </div>
-@endsection
+    </div> --}}
 
-@section('scripts')
     <script>
         const mine = () => setTimeout(async () => {
             console.log('before calling');
@@ -91,3 +88,7 @@
         }
     </script>
 @endsection
+
+{{-- @section('scripts')
+    
+@endsection --}}

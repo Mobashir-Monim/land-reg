@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Node;
 use App\Block;
+use App\ServerConfig;
 
 class ChainController extends Controller
 {
@@ -30,4 +31,9 @@ class ChainController extends Controller
             ],
         ]);
     }
+
+    // public function notifyChildren()
+    // {
+    //     $node = 
+    // }
 }

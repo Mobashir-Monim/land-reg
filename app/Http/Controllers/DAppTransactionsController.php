@@ -81,4 +81,12 @@ class DAppTransactionsController extends Controller
             'file' => base64_encode(file_get_contents($transaction->document)),
         ]);
     }
+
+    public function mine(Request $request)
+    {
+        $elected = json_decode($request->elected);
+        $this->asyncPost("http://127.0.0.1:8001/api/async/post", [json_decode($request->data)]);
+        
+        return view('dApp.demo.done', compact('elected'));
+    }
 }
