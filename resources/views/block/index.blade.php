@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="mb-3">
-                                        Hash: <br> {{ $mineData->data }}
+                                        {{ $mineData->data }}
                                     </div>
                                     <div class="mb-3">
                                         <a href="{{ route('mine.start', ['txid' => $mineData->txid]) }}" class="btn btn-success w-100">Start Mining</a>
