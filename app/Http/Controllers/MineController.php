@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Node;
 use App\MineData;
 use Carbon\Carbon;
+use App\Block;
 
 class MineController extends Controller
 {
