@@ -36,10 +36,7 @@ class MineController extends Controller
     }
 
     public function mine($data, $start, $limit)
-    // public function mine($data, $limit)
     {
-        $data = json_decode($data);
-        // need to remove start
         $data['block_data']['timestamp'] = Carbon::now()->timestamp * 1000;
         $data['block_data']['prev_hash'] = Block::orderBy('created_at', 'desc')->first()->hash;
 
