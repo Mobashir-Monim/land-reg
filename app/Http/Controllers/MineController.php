@@ -15,8 +15,8 @@ class MineController extends Controller
         $start = Carbon::now()->toDateTimeString();
         $chains_details = $this->findConsentingChain();
         $this->truncateChain($chains_details);
-        $data = json_decode($request->data);
-        MineData::create(['data' => $request->data, 'txid' => $data->block_data->txid]);
+        $data = json_decode(json_decode($request['data']['mine_data'], true), true);
+        MineData::create(['data' => json_decode($request['data']['mine_data']), 'txid' => $data['block_data']['txid']]);
         
         return response()->json([
             'success' => true,
@@ -119,7 +119,7 @@ class MineController extends Controller
         $majority = array_keys($chains_details['chains'], max($chains_details['chains']))[0];
 
         if ($chains_details['self'] != $majority) {
-            $response = $this->fetchData("http://".$chains_details['ips'][$majority]."/api/blocks/send");
+            $response = $this->postData("http://".$chains_details['ips'][$majority]."/api/blocks/send", ['ip' => $this->selfIP()]);
             Block::updateAll(json_decode($response->getBody()->getContents())->data->blocks);
         }
 

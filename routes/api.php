@@ -23,7 +23,7 @@ Route::group(['middleware' => ['verify-ip']], function () {
     Route::post('/elect/node', 'ElectionController@node')->name('elect.node');
     Route::post('/mine/block', 'MineController@processMine')->name('mine.block');
     Route::post('/chain/header', 'ChainController@sendLeading')->name('chain.header');
-    Route::get('/blocks/send', 'BlockController@sendBlocks')->name('blocks.send');
+    Route::post('/blocks/send', 'BlockController@sendBlocks')->name('blocks.send');
 
     Route::post('/comp-dump', function () {
         dd(exec('cd .. ; ./composer-cmd.sh'));
