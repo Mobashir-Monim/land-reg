@@ -120,8 +120,8 @@ class BlockController extends Controller
 
     public function mined(Request $request, $txid)
     {
-        $data = json_decode(MineData::where('txid', $txid)->first()->data);
-        dd($data);
+        $data = json_decode(MineData::where('txid', $txid)->first()->data, true);
+
         return view('dApp.demo.mined', compact('data'));
     }
 }
