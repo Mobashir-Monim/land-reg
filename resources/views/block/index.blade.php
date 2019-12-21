@@ -20,9 +20,9 @@
             <div class="col-md-12" id="blocks-container">
                 <div class="row mb-3" id="row-0">
                     @foreach (App\MineData::whereNull('timestamp')->get() as $mineData)
-                        @php
+                        {{-- @php
                             $block = json_decode($mineData->data);
-                        @endphp
+                        @endphp --}}
                         <div class="col-md-4 mb-3">
                             <div class="card">
                                 <div class="card-header">
