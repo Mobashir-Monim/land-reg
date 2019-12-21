@@ -30,16 +30,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="mb-3">
-                                        Hash: <br> {{ $block->hash }}
-                                    </div>
-                                    <div class="mb-3">
-                                        Timestamp: <br> {{ $block->block_data->timestamp }}
-                                    </div>
-                                    <div class="mb-3">
-                                        Nonce: <br> {{ $block->block_data->nonce }}
-                                    </div>
-                                    <div class="mb-3">
-                                        Prev Hash: <br> {{ $block->block_data->prev_hash }}
+                                        Hash: <br> {{ $block }}
                                     </div>
                                     <div class="mb-3">
                                         <a href="{{ route('mine.start', ['txid' => $mineData->txid]) }}" class="btn btn-success w-100">Start Mining</a>
