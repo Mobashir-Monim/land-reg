@@ -86,6 +86,7 @@ class DAppTransactionsController extends Controller
     {
         $elected = json_decode($request->elected);
         $this->asyncPost("http://$elected->node/api/mine/block", [json_decode($request->data)]);
+        dd(json_decode($response->getBody()->getContents()));
         
         return view('dApp.demo.done', compact('elected'));
     }

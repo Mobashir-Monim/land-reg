@@ -18,7 +18,10 @@ class MineController extends Controller
         $data = json_decode($request->data);
         MineData::create(['data' => $request->data, 'txid' => $data->block_data->txid]);
         
-        return;
+        return response()->json([
+            'success' => true,
+            'message' => 'Queued mine data'
+        ]);
     }
 
     public function startMine(Request $request, $txid)
