@@ -84,7 +84,7 @@ class Block extends BaseModel
         if ($hash < $lower || $hash > $upper)
             return false;
 
-        if (!is_null(Block::where('hash', $data['hash']->first())))
+        if (!is_null(Block::where('hash', $data['hash'])->first()))
             return false;
         
         return true;
