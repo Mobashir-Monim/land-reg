@@ -36,8 +36,8 @@ Route::middleware(['auth', 'super-admin-only'])->group(function () {
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/mine', 'BlockController@requestMine')->name('mine');
 Route::get('/blocks', 'BlockController@index')->name('blocks');
-Route::get('/blocks/mined', 'MineController@mined')->name('mined');
-Route::get('/blocks/mine/{txid}', 'BlockController@startMine')->name('mine.start');
+Route::get('/blocks/mined', 'BlockController@mined')->name('mined');
+Route::get('/blocks/mine/{txid}', 'MineController@startMine')->name('mine.start');
 Route::get('/reset-chain', 'BlockController@reset')->name('reset-chain');
 Route::get('/js-blocks', function () {
     $data['text'] = "Mobashir Monim";
