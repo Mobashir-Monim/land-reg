@@ -91,7 +91,7 @@ class MineController extends Controller
 
     public function geneticConsensus()
     {
-        $nodes = Node::all()->shuffle()->whereNotIn('ip', $this->selfIP())->take(rand((1 + count(Node::all())), (3 * count(Node::all()) / 4)))->toArray();
+        $nodes = Node::all()->shuffle()->whereNotIn('ip', [$this->selfIP(), "127.0.0.1"])->take(rand((1 + count(Node::all())), (3 * count(Node::all()) / 4)))->toArray();
         $chains_details = ['chains' => array(), 'ips' => array(), 'self' => (new \App\Http\Controllers\ChainController)->leadingChain()];
         
         foreach ($nodes as $node) {
