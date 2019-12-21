@@ -11,7 +11,7 @@ class BlockController extends Controller
     public static function createGenesis()
     {
         if (count(Block::all()) == 0) {
-            $timestamp = Carbon::now()->timestamp * 1000;
+            $timestamp = Carbon::parse('8th Sept 1996')->timestamp * 1000;
             $data = "Genesis Block";
             $hashable = "{\"timestamp\":".$timestamp.",\"prev_hash\":null,\"nonce\":null,\"data\":".$data."}";
             $hash = hash('sha256', $hashable);

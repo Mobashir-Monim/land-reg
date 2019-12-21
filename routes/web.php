@@ -66,10 +66,10 @@ Route::get('test', function () {
     // return count(App\ComputeTester::all());
 });
 
-Route::get('/test2', 'MineController@processMine');
+Route::get('/test2', 'MineController@geneticConsensus');
 Route::get('/test3', function () {
-    $response = (new App\Http\Controllers\Controller)->postData("http://127.0.0.1:8001/api/test", ['ip' => (new App\Http\Controllers\Controller)->selfIP()]);
-    dd(json_decode($response->getBody()->getContents()));
+    // $response = (new App\Http\Controllers\Controller)->postData("http://127.0.0.1:8001/api/test", ['ip' => (new App\Http\Controllers\Controller)->selfIP()]);
+    // dd(json_decode($response->getBody()->getContents()));
     dd(request()->ip(), (new App\Http\Controllers\Controller)->selfIP());
     dd(App\Block::generateUpperLim(), App\Block::generateLowerLim());
     $val = hexdec(bin2hex(openssl_random_pseudo_bytes(32)));

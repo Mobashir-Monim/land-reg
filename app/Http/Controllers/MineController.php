@@ -93,10 +93,16 @@ class MineController extends Controller
     {
         $nodes = Node::all()->shuffle()->whereNotIn('ip', [$this->selfIP(), "127.0.0.1"])->take(rand((1 + count(Node::all())), (3 * count(Node::all()) / 4)))->toArray();
         $chains_details = ['chains' => array(), 'ips' => array(), 'self' => (new \App\Http\Controllers\ChainController)->leadingChain()];
-        
-        foreach ($nodes as $node) {
-            $response = $this->postData("http://".$node['ip']."/api/chain/header", ['ip' => $this->selfIP()]);
-            $chains_details = $this->processChain($chains_details, $node['ip'], json_decode($response->getBody()->getContents())->data->chain);
+        $n = null;
+
+        try {
+            foreach ($nodes as $node) {
+                $response = $this->postData("http://".$node['ip']."/api/chain/header", ['ip' => $this->selfIP()]);
+                $chains_details = $this->processChain($chains_details, $node['ip'], json_decode($response->getBody()->getContents())->data->chain);
+                $n = $node;
+            }
+        } catch (\Exception $e) {
+            dd(json_decode($response->getBody()->getContents()));
         }
 
         return $chains_details;
