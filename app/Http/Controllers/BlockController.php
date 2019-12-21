@@ -121,7 +121,7 @@ class BlockController extends Controller
     public function mined(Request $request, $txid)
     {
         $data = MineData::where('txid', $txid)->first()->data;
-
+        dd($data);
         return view('dApp.demo.mined', compact('data'));
     }
 }
