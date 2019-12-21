@@ -31,8 +31,8 @@ class MineController extends Controller
         $data = json_decode(MineData::where('txid', $txid)->first()->data, true);
         $start = Carbon::now()->toDateTimeString();
         $data = $this->mine($data, $start, 43260);
-        dd($data);
-        return redirect(route('mined'));
+        
+        return redirect(route('mined', ['txid' => $txid]));
     }
 
     public function mine($data, $start, $limit)

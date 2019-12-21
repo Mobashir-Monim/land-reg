@@ -23,7 +23,7 @@
                         </div>
                         <div class="row my-3">
                             <div class="col-md-6 my-3">Transfer from: {{ $data['block_data']['from'] }}</div>
-                            <div class="col-md-6 my-3">Transfer from: {{ $data['block_data']['to'] }}</div>
+                            <div class="col-md-6 my-3">Transfer to: {{ $data['block_data']['to'] }}</div>
                             <div class="col-md-12 my-3">
                                 Specifics: <br>
                                 {{ $data['block_data']['specifics'] }}
