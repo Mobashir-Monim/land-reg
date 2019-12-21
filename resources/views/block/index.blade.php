@@ -15,6 +15,43 @@
             </div>
         </div>
     </div>
+    @if (count(App\MineData::whereNull('timestamp')->get()) > 0)
+        <div class="row mt-3">
+            <div class="col-md-12" id="blocks-container">
+                <div class="row mb-3" id="row-0">
+                    @foreach (App\MineData::whereNull('timestamp')->get() as $mineData)
+                        @php
+                            $block = json_decode($mineData->data);
+                        @endphp
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    Unmined Block
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        Hash: <br> {{ $block->hash }}
+                                    </div>
+                                    <div class="mb-3">
+                                        Timestamp: <br> {{ $block->block_data->timestamp }}
+                                    </div>
+                                    <div class="mb-3">
+                                        Nonce: <br> {{ $block->block_data->nonce }}
+                                    </div>
+                                    <div class="mb-3">
+                                        Prev Hash: <br> {{ $block->block_data->prev_hash }}
+                                    </div>
+                                    <div class="mb-3">
+                                        <a href="{{ route('mine.start', ['txid' => $mineData->txid]) }}" class="btn btn-success w-100">Start Mining</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
     {{-- <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">

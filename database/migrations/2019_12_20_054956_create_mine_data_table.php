@@ -15,7 +15,7 @@ class CreateMineDataTable extends Migration
     {
         Schema::create('mine_data', function (Blueprint $table) {
             $table->unsignedBigInteger('txid');
-            $table->longtext('data');
+            $table->longtext('data')->unique();
             $table->string('timestamp')->nullable();
         });
     }

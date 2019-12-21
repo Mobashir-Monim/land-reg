@@ -12,22 +12,29 @@ class MineController extends Controller
     public function processMine(Request $request)
     {
         set_time_limit(43260);
+        $start = Carbon::now()->toDateTimeString();
         $chains_details = $this->findConsentingChain();
         $this->truncateChain($chains_details);
-        $start = Carbon::now()->toDateTimeString();
         $data = json_decode($request->data);
         MineData::create(['data' => $request->data, 'txid' => $data->block_data->txid]);
         
         return;
     }
 
-    // public function mine($data, $start, $limit)
-    public function mine($data)
+    public function startMine(Request $request, $txid)
     {
-        MineData::create([]);
+        set_time_limit(43260);
+        $data = MineData::where('txid', $txid)->first()->data;
+        $data = $this->mine($data, 43260);
+        dd($data);
+        return redirect(route('mined'));
+    }
+
+    // public function mine($data, $start, $limit)
+    public function mine($data, $limit)
+    {
         $data = json_decode($data);
-        $timestamp = Carbon::now()->timestamp * 1000;
-        $data['block_data']['timestamp'] = $timestamp;
+        $data['block_data']['timestamp'] = Carbon::now()->timestamp * 1000;
         $data['block_data']['prev_hash'] = Block::orderBy('created_at', 'desc')->first()->hash;
 
         while(true) {
@@ -44,6 +51,12 @@ class MineController extends Controller
         }
 
         $end = Carbon::now()->toDateTimeString();
+        $mineData = MineData::whereNull('timestamp')->first();
+        $mineData->data = json_encode($data);
+        $mineData->timestamp = Carbon::now()->timestamp * 1000;
+        $mineData->save();
+
+        return $data;
     }
 
 

@@ -42,7 +42,7 @@ class Controller extends BaseController
     public function asyncPost($url, $data)
     {
         $client = new Client();
-        $client->postAsync($url, ['form_params' => ['data' => $data]]);
+        $promise = $client->postAsync($url, ['form_params' => ['data' => $data]]);
         $response = $promise->wait();
         return $response;
     }
