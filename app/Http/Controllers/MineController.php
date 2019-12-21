@@ -14,6 +14,12 @@ class MineController extends Controller
         set_time_limit(43260);
         $start = Carbon::now()->toDateTimeString();
         $chains_details = $this->findConsentingChain();
+
+        return response()->json([
+            'success' => true,
+            'data' => $chains_details,
+        ]);
+
         $this->truncateChain($chains_details);
         $data = json_decode($request->data);
         MineData::create(['data' => $request->data, 'txid' => $data->block_data->txid]);

@@ -85,7 +85,8 @@ class DAppTransactionsController extends Controller
     public function mine(Request $request)
     {
         $elected = json_decode($request->elected);
-        $this->asyncPost("http://$elected->node/api/mine/block", [json_decode($request->data)]);
+        // $response = $this->asyncPost("http://$elected->node/api/mine/block", ['ip' => $this->selfIP(), 'data' => json_decode($request->data)]);
+        $response = $this->asyncPost("http://18.141.24.199/api/mine/block", ['ip' => $this->selfIP(), 'data' => json_decode($request->data)]);
         dd(json_decode($response->getBody()->getContents()));
         
         return view('dApp.demo.done', compact('elected'));
