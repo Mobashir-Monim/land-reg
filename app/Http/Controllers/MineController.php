@@ -28,17 +28,17 @@ class MineController extends Controller
     {
         set_time_limit(43260);
         $data = MineData::where('txid', $txid)->first()->data;
-        $data = $this->mine($data, 43260);
+        $start = Carbon::now()->toDateTimeString();
+        $data = $this->mine($data, $start, 43260);
         dd($data);
         return redirect(route('mined'));
     }
 
-    // public function mine($data, $start, $limit)
-    public function mine($data, $limit)
+    public function mine($data, $start, $limit)
+    // public function mine($data, $limit)
     {
         $data = json_decode($data);
         // need to remove start
-        $start = Carbon::now()->toDateTimeString();
         $data['block_data']['timestamp'] = Carbon::now()->timestamp * 1000;
         $data['block_data']['prev_hash'] = Block::orderBy('created_at', 'desc')->first()->hash;
 
