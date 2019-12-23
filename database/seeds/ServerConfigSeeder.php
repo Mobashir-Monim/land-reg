@@ -29,6 +29,7 @@ class ServerConfigSeeder extends Seeder
             ['name' => 'type', 'description' => 'The type of the node in the hierarchy', 'value' => $flag ? 'Localhost' : $type],
             ['name' => 'name', 'description' => 'The name of the node in the architecture', 'value' => $flag ? 'Localhost' : $name],
             ['name' => 'status', 'description' => 'The status of the node', 'value' => 'Active'],
+            ['name' => 'chain', 'description' => 'The ip of the node petitioning for ', 'value' => '{"area":null,"subzone":null,"node":null,"timestamp":null,"attempts":null}'],
         ];
 
         foreach ($items as $item) {
