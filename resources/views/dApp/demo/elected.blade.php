@@ -19,7 +19,7 @@
                         </div>
                         <div class="row my-3">
                             <div class="col-md-6 my-3 h5">Upper Limit: {{ $data['upper_limit'] }}</div>
-                            <div class="col-md-6 my-3 h5 text-center">Lower Limit: {{ $data['lower_limit'] }}</div>
+                            <div class="col-md-6 my-3 h5">Lower Limit: {{ $data['lower_limit'] }}</div>
                         </div>
                         <div class="row my-3">
                             <div class="col-md-6 my-3">Transfer from: {{ $data['block_data']['from'] }}</div>
