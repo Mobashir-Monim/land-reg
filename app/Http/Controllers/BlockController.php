@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Block;
+use App\Node;
 use App\MineData;
 use App\ServerConfig;
 use App\ChainData;
