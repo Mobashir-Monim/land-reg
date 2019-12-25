@@ -22,9 +22,9 @@ class BlockController extends Controller
                 'data' => $data,
                 'hash' => $hash,
                 'timestamp' => $timestamp,
-                'difficulty' => '0',
-                'starting_time' =>  Carbon::createFromTimestamp($timestamp/1000)->toDateTimeString(),
-                'ending_time' => Carbon::createFromTimestamp($timestamp/1000)->toDateTimeString(),
+                // 'difficulty' => '0',
+                // 'starting_time' =>  Carbon::createFromTimestamp($timestamp/1000)->toDateTimeString(),
+                // 'ending_time' => Carbon::createFromTimestamp($timestamp/1000)->toDateTimeString(),
             ]);
         }
 
