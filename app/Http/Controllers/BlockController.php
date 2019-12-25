@@ -123,7 +123,6 @@ class BlockController extends Controller
     public function mined(Request $request, $txid)
     {
         $data = json_decode(MineData::where('txid', $txid)->first()->data, true);
-        $chainData = ChainData::create(['data' => $data, 'txid' => $txid]);
 
         return view('dApp.demo.mined', compact('data'));
     }

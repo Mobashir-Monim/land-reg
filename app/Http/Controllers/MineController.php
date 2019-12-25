@@ -58,6 +58,7 @@ class MineController extends Controller
         $mineData->data = json_encode($data);
         $mineData->timestamp = Carbon::now()->timestamp * 1000;
         $mineData->save();
+        $chainData = ChainData::create(['data' => $data, 'txid' => $data['block_data']['txid']]);
 
         return $data;
     }
