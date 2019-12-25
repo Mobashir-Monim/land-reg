@@ -26,6 +26,7 @@ class ChainController extends Controller
             }
         } else {
             $parent = $self->parent;
+            dd(['ip' => $self->ip, 'chain_data' => json_encode($chainData->data)]);
             $response = $this->postData("http://$parent->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => json_encode($chainData->data)]);
             $message .= "$parent->ip/blocks/chain/$txid/request";
         }
