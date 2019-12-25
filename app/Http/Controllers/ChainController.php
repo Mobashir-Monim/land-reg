@@ -21,13 +21,13 @@ class ChainController extends Controller
             $councils = Node::where('type', 1)->whereNotIn('ip', [$self->ip])->get();
 
             foreach ($councils as $council) {
-                $response = $this->postData("http://$council->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => json_encode($chainData->data)]);
+                $response = $this->postData("http://$council->ip/api/blocks/chain/$txid/process", ['ip' => $self->ip, 'chain_data' => json_encode($chainData->data)]);
                 $message .= "$council->ip/blocks";
             }
         } else {
             $parent = $self->parent;
             // dd(['ip' => $self->ip, 'chain_data' => $chainData->data]);
-            $response = $this->postData("http://$parent->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $chainData->data]);
+            $response = $this->postData("http://$parent->ip/api/blocks/chain/$txid/process", ['ip' => $self->ip, 'chain_data' => $chainData->data]);
             $message .= "$parent->ip/blocks/chain/$txid/request";
         }
 
