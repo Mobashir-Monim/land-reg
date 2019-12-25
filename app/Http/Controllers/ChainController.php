@@ -21,7 +21,7 @@ class ChainController extends Controller
             $councils = Node::where('type', 1)->get();
 
             foreach ($councils as $council) {
-                $response = $this->postData("http://$council->ip/api/blocks/chain/$txid/process", ['ip' => $self->ip, 'chain_data' => json_encode($chainData->data)]);
+                $response = $this->postData("http://$council->ip/api/blocks/chain/$txid/process", ['ip' => $self->ip, 'chain_data' => $chainData->data]);
                 $message .= "http://$council->ip/blocks ";
             }
         } else {
