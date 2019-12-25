@@ -7,6 +7,7 @@ use App\Node;
 use App\MineData;
 use Carbon\Carbon;
 use App\Block;
+use App\ChainData;
 
 class MineController extends Controller
 {
