@@ -65,7 +65,7 @@ class Block extends BaseModel
     {
         $lim = "";
 
-        for ($i = 0; $i <= rand(32, 48); $i++) {
+        for ($i = 0; $i <= rand(0, 48); $i++) {
             $lim .= self::$hexVals[rand(0, 15)];
         }
 

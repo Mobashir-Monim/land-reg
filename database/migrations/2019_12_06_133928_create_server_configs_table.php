@@ -17,7 +17,7 @@ class CreateServerConfigsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('description');
-            $table->string('value');
+            $table->mediumText('value');
             $table->timestamps();
         });
     }
@@ -30,5 +30,6 @@ class CreateServerConfigsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('server_configs');
+        Schema::dropIfExists('chain_data');
     }
 }

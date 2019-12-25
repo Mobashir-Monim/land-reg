@@ -48,9 +48,9 @@ class MineController extends Controller
     
             $data['block_data']['nonce']++;
 
-            if ($this->timelimitCheck($start, $limit))
-                $this->requestSubzoneLock($data);
-                break;
+            // if ($this->timelimitCheck($start, $limit))
+            //     $this->requestSubzoneLock($data);
+            //     break;
         }
 
         $end = Carbon::now()->toDateTimeString();

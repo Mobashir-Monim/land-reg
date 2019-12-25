@@ -29,7 +29,10 @@ class ServerConfigSeeder extends Seeder
             ['name' => 'type', 'description' => 'The type of the node in the hierarchy', 'value' => $flag ? 'Localhost' : $type],
             ['name' => 'name', 'description' => 'The name of the node in the architecture', 'value' => $flag ? 'Localhost' : $name],
             ['name' => 'status', 'description' => 'The status of the node', 'value' => 'Active'],
-            ['name' => 'chain', 'description' => 'The ip of the node petitioning for ', 'value' => '{"area":null,"subzone":null,"node":null,"timestamp":null,"attempts":null}'],
+            ['name' => 'petition', 'description' => 'The details of the current petition for own area', 'value' => '{"area":null,"subzone":null,"node":null,"votes":null,"timestamp":null,"attempts":null,"accept":true}'],
+            ['name' => 'petition-data', 'description' => 'The data of the current petition', 'value' => ''],
+            ['name' => 'vote', 'description' => 'The vote given to an ip for chaining', 'value' => ''],
+            ['name' => 'vote-data', 'description' => 'The data of the voted ip', 'value' => ''],
         ];
 
         foreach ($items as $item) {

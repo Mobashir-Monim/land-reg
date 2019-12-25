@@ -47,6 +47,12 @@ Route::get('/js-blocks', function () {
 })->name('js-blocks');
 
 Route::get('test', function () {
+    dd(Carbon\Carbon::parse('5 sec')->toDateTimeString());
+    $emailJob = (new \App\Jobs\LobbyPetition('{"area":null,"subzone":null,"node":null,"votes":null,"timestamp":null,"attempts":null,"accept":true}'))->delay(Carbon\Carbon::now()->addMinutes(5));
+    dispatch($emailJob)->onQueue('emails');
+    // Equation for number of servers requested
+    // dd(round((10 / 3576) * 20 + 19.891));
+    dd(180 * atan(2/3)/ pi());
     exec("cd .. ; php artisan migrate:rollback --step=1 ; php artisan migrate");
     dd("done");
     dd(base64_encode(file_get_contents('https://www.taff2.com/uploads/TAF%20Bangladesh%20Project%20Briefing_final.pdf')));
