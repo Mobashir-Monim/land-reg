@@ -40,11 +40,11 @@
             </div>
         </div>
     @endif
-    @if (count(App\ChainData::whereNull('timestamp')->get()) > 0)
+    @if (count(App\ChainData::where('requested', false)->get()) > 0)
         <div class="row mt-3">
             <div class="col-md-12" id="blocks-container">
                 <div class="row mb-3" id="row-0">
-                    @foreach (App\ChainData::whereNull('timestamp')->get() as $chainData)
+                    @foreach (App\ChainData::where('requested', false)->get() as $chainData)
                         <div class="col-md-4 mb-3">
                             <div class="card">
                                 <div class="card-header">
