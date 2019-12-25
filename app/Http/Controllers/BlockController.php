@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Block;
 use App\MineData;
 use App\ServerConfig;
+use App\ChainData;
 
 class BlockController extends Controller
 {
@@ -130,7 +131,7 @@ class BlockController extends Controller
     public function addBlock(Request $request, $txid)
     {
         $self = Node::where('ip', $this->selfIP())->first();
-        
+
         foreach (Node::where('area_id', ServerConfig::where('name', 'area')->first())->get() as $node) {
             $this->postData("http://$node->ip/api/blocks/chain/$txid/add", ['ip' => $self->ip, 'chain_data']);
         }
