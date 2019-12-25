@@ -77,6 +77,7 @@
         </nav>
 
         <div class="container-fluid">
+            @include('layouts.messages')
             @yield('content')
         </div>
         {{-- <main class="py-4">

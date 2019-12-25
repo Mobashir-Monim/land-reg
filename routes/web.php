@@ -38,6 +38,9 @@ Route::post('/mine', 'BlockController@requestMine')->name('mine');
 Route::get('/blocks', 'BlockController@index')->name('blocks');
 Route::get('/blocks/mined/{txid}', 'BlockController@mined')->name('mined');
 Route::get('/blocks/mine/{txid}', 'MineController@startMine')->name('mine.start');
+Route::get('/blocks/chain/{txid}/add', 'BlockController@addBlock')->name('block.add');
+Route::get('/blocks/chain/{txid}', 'ChainController@chainRequest')->name('chain.start');
+Route::get('/blocks/chain/{txid}/request', 'ChainController@chainData')->name('chain.data');
 Route::get('/reset-chain', 'BlockController@reset')->name('reset-chain');
 Route::get('/js-blocks', function () {
     $data['text'] = "Mobashir Monim";

@@ -40,6 +40,31 @@
             </div>
         </div>
     @endif
+    @if (count(App\ChainData::whereNull('timestamp')->get()) > 0)
+        <div class="row mt-3">
+            <div class="col-md-12" id="blocks-container">
+                <div class="row mb-3" id="row-0">
+                    @foreach (App\ChainData::whereNull('timestamp')->get() as $chainData)
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    Unchained Data
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        {{ $chainData->data }}
+                                    </div>
+                                    <div class="mb-3">
+                                        <a href="{{ route('block.add', ['txid' => $chainData->txid]) }}" class="btn btn-success w-100">Start Chaining</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
     {{-- <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">

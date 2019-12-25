@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Block;
 use App\MineData;
+use App\ServerConfig;
 
 class BlockController extends Controller
 {
@@ -121,7 +122,29 @@ class BlockController extends Controller
     public function mined(Request $request, $txid)
     {
         $data = json_decode(MineData::where('txid', $txid)->first()->data, true);
+        $chainData = ChainData::create(['data' => $data, 'txid' => $txid]);
 
         return view('dApp.demo.mined', compact('data'));
+    }
+
+    public function addBlock(Request $request, $txid)
+    {
+        $self = Node::where('ip', $this->selfIP())->first();
+        foreach (Node::where('area_id', ServerConfig::where('name', 'area')->first())->get() as $node) {
+            $this->postData("http://$node->ip/api/blocks/chain/$txid/add", ['ip' => $self->ip, 'chain_data']);
+        }
+
+        return back();
+    }
+
+    public function processBlock(Request $request)
+    {
+        $data = json_decode(json_decode($request['data']['chain_data'], true), true);
+        Block::create(['hash' => $data['hash'], 'timestamp' => $data['block_data']['timestamp'], 'nonce' => $data['block_data']['nonce'], 'prev_hash' => $data['block_data']['prev_hash'], 'data' => $data['block_data']]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Block added'
+        ]);
     }
 }

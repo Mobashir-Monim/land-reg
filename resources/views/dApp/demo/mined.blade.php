@@ -25,6 +25,7 @@
                                     Previous Hash: {{ $data['block_data']['prev_hash'] }} <br>
                                     Nonce: {{ $data['block_data']['nonce'] }} <br>
                                     Timestamp: {{ $data['block_data']['timestamp'] }}
+                                    <a href="{{ route('chain.start', ['txid' => $data['block_data']['txid']]) }}" class="btn btn-success w-100">Request chaining</a>
                                 </div>
                             </div>
                         </div>
