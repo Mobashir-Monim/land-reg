@@ -14,6 +14,7 @@ class CreateMineDataTable extends Migration
     public function up()
     {
         Schema::create('mine_data', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('txid');
             $table->longtext('data');
             $table->string('timestamp')->nullable();
