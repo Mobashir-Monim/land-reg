@@ -45,7 +45,9 @@ class ChainController extends Controller
 
     public function process(Request $request, $txid)
     {
-        $chainData = ChainData::create(['txid' => $txid, 'data' => $request['data']['chain_data']]);
+        if (is_null(ChainData::where('txid', $txid)->first())) {
+            $chainData = ChainData::create(['txid' => $txid, 'data' => $request['data']['chain_data']]);
+        }
 
         return response()->json([
             'success' => true,
