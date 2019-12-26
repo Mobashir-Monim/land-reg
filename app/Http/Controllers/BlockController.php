@@ -134,7 +134,7 @@ class BlockController extends Controller
         $data = ChainData::where('txid', $txid)->first()->data;
 
         foreach (Node::where('area_id', ServerConfig::where('name', 'area')->first())->get() as $node) {
-            dd($this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data]));
+            dd(json_decode(($this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data])->getBody()->getContents())));
         }
 
         return back();
