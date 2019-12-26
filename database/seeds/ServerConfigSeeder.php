@@ -13,7 +13,7 @@ class ServerConfigSeeder extends Seeder
     {
         preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', file_get_contents('http://checkip.dyndns.com/'), $m);
         $externalIp = $m[1];
-        $node = (new App\Node)->getNode($externalIp);
+        $node = App\Node::where('ip', $externalIp)->first();
         $flag = (request()->ip() == '127.0.0.1');
 
         if (!$flag) {
