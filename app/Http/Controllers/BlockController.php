@@ -131,9 +131,10 @@ class BlockController extends Controller
     public function addBlock(Request $request, $txid)
     {
         $self = Node::where('ip', $this->selfIP())->first();
+        $data = ChainData::where('txid', $txid)->first()->data;
 
         foreach (Node::where('area_id', ServerConfig::where('name', 'area')->first())->get() as $node) {
-            $this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data']);
+            $this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data]);
         }
 
         return back();
@@ -142,11 +143,6 @@ class BlockController extends Controller
     public function processBlock(Request $request)
     {
         $data = json_decode($request['data']['chain_data'], true);
-        return response()->json([
-            'success' => true,
-            'message' => 'Block added',
-            'data' => $data,
-        ]);
         Block::create(['hash' => $data['hash'], 'timestamp' => $data['block_data']['timestamp'], 'nonce' => $data['block_data']['nonce'], 'prev_hash' => $data['block_data']['prev_hash'], 'data' => $data['block_data']]);
 
         return response()->json([
