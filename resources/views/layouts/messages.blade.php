@@ -3,7 +3,7 @@
         <div class="row text-center alert alert-danger push-down">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                {{$error}}
+                {!! $error !!}
             </div>
             <div class="col-md-4"></div>
         </div>
@@ -14,7 +14,7 @@
     <div class="row text-center alert alert-success push-down">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            {{session('success')}}
+            {!! session('success') !!}
         </div>
         <div class="col-md-4"></div>
     </div>
@@ -24,7 +24,7 @@
     <div class="row text-center alert alert-danger push-down">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            {{session('error')}}
+            {!! session('error') !!}
         </div>
         <div class="col-md-4"></div>
     </div>
