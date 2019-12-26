@@ -22,12 +22,12 @@ class ChainController extends Controller
 
             foreach ($councils as $council) {
                 $response = $this->postData("http://$council->ip/api/blocks/chain/$txid/process", ['ip' => $self->ip, 'chain_data' => $chainData->data]);
-                $message .= "http://$council->ip/blocks ";
+                $message .= '<a href="http://'.$council->ip.'/blocks" target="_blank" class="btn btn-success">Visit Node</a>';
             }
         } else {
             $parent = $self->parent;
             $response = $this->postData("http://$parent->ip/api/blocks/chain/$txid/process", ['ip' => $self->ip, 'chain_data' => $chainData->data]);
-            $message .= "http://$parent->ip/blocks/chain/$txid/request";
+            $message .= '<a href="http://'.$parent->ip.'/blocks/chain/'.$txid.'/request" target="_blank" class="btn btn-success">Visit Node</a>';
         }
 
         $chainData->requested = true;

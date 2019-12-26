@@ -50,6 +50,9 @@ Route::get('/js-blocks', function () {
 })->name('js-blocks');
 
 Route::get('test', function () {
+    $self = App\Node::where('ip', (new App\Http\Controllers\Controller)->selfIP())->first();
+    $nodes = App\Node::where('area_id', $self->area_id)->get();
+    dd($self, $nodes);
     dd(Carbon\Carbon::parse('5 sec')->toDateTimeString());
     $emailJob = (new \App\Jobs\LobbyPetition('{"area":null,"subzone":null,"node":null,"votes":null,"timestamp":null,"attempts":null,"accept":true}'))->delay(Carbon\Carbon::now()->addMinutes(5));
     dispatch($emailJob)->onQueue('emails');
