@@ -134,7 +134,8 @@ class BlockController extends Controller
         $data = ChainData::where('txid', $txid)->first()->data;
 
         foreach (Node::where('area_id', ServerConfig::where('name', 'area')->first())->get() as $node) {
-            dd(json_decode(($this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data])->getBody()->getContents())));
+            $this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data]);
+            // dd(json_decode(($this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data])->getBody()->getContents())));
         }
 
         return back();
@@ -143,12 +144,12 @@ class BlockController extends Controller
     public function processBlock(Request $request)
     {
         $data = json_decode($request['data']['chain_data'], true);
-        return response()->json([
-            'success' => true,
-            'message' => 'Block added',
-            'data' => $data
-        ]);
-        Block::create(['hash' => $data['hash'], 'timestamp' => $data['block_data']['timestamp'], 'nonce' => $data['block_data']['nonce'], 'prev_hash' => $data['block_data']['prev_hash'], 'data' => $data['block_data']]);
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Block added',
+        //     'data' => $data
+        // ]);
+        Block::create(['hash' => $data['hash'], 'timestamp' => $data['block_data']['timestamp'], 'nonce' => $data['block_data']['nonce'], 'prev_hash' => $data['block_data']['prev_hash'], 'data' => json_encode($data['block_data'])]);
 
         return response()->json([
             'success' => true,
