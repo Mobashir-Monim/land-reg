@@ -131,15 +131,15 @@ class BlockController extends Controller
     public function addBlock(Request $request, $txid)
     {
         $self = Node::where('ip', $this->selfIP())->first();
-        $data = ChainData::where('txid', $txid)->first()->data;
+        $chainData = ChainData::where('txid', $txid)->first();
 
         foreach (Node::where('area_id', ServerConfig::where('name', 'area')->first())->get() as $node) {
-            $this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data]);
+            $this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $chainData->data]);
             // dd(json_decode(($this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data])->getBody()->getContents())));
         }
 
-        $data->requested = true;
-        $data->save();
+        $chainData->requested = true;
+        $chainData->save();
 
         return back();
     }
