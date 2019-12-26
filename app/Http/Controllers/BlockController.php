@@ -138,6 +138,9 @@ class BlockController extends Controller
             // dd(json_decode(($this->postData("http://$node->ip/api/blocks/chain/$txid", ['ip' => $self->ip, 'chain_data' => $data])->getBody()->getContents())));
         }
 
+        $data->requested = true;
+        $data->save();
+
         return back();
     }
 
