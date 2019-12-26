@@ -143,6 +143,11 @@ class BlockController extends Controller
     public function processBlock(Request $request)
     {
         $data = json_decode($request['data']['chain_data'], true);
+        return response()->json([
+            'success' => true,
+            'message' => 'Block added',
+            'data' => $data
+        ]);
         Block::create(['hash' => $data['hash'], 'timestamp' => $data['block_data']['timestamp'], 'nonce' => $data['block_data']['nonce'], 'prev_hash' => $data['block_data']['prev_hash'], 'data' => $data['block_data']]);
 
         return response()->json([
