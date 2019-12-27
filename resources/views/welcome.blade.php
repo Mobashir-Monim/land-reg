@@ -134,5 +134,5 @@
         </div>
     </div>
 
-    <iframe src="http://tradecapacity.pri-bd.org/iframe/useful-links" width="100%" height="600px"></iframe>
+    <iframe src="http://www.tradecapacity.pri-bd.org/iframe/useful-links" style="border:0px #ffffff none;" name="myiFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="600px" allowfullscreen></iframe>
 @endsection
