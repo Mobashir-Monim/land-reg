@@ -134,5 +134,5 @@
         </div>
     </div>
 
-    <iframe src="http://www.tradecapacity.pri-bd.org/iframe/useful-links" style="border:0px #ffffff none;" name="myiFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
+    <iframe src="http://www.taff2.com/iframe/useful-links" style="border:0px #ffffff none;" name="myiFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
 @endsection
