@@ -134,5 +134,5 @@
         </div>
     </div>
 
-    <iframe src="http://tradecapacity.pri-bd.org/iframe/training-programs" width="100%" height="600px"></iframe>
+    <iframe src="https://www.taff2.com/iframe/training-programs" width="100%" height="600px"></iframe>
 @endsection
