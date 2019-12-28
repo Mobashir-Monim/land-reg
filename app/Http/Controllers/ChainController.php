@@ -25,7 +25,7 @@ class ChainController extends Controller
                 $message .= '<a href="http://'.$council->ip.'/blocks" target="_blank" class="btn btn-success">Visit Node</a>';
             }
 
-            (new App\Http\Controllers\BlockController)->addBlock($request, $txid);
+            (new BlockController)->addBlock($request, $txid);
         } else {
             $parent = $self->parent;
             $response = $this->postData("http://$parent->ip/api/blocks/chain/$txid/process", ['ip' => $self->ip, 'chain_data' => $chainData->data]);
